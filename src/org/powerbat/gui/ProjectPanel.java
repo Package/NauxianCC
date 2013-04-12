@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -53,10 +55,23 @@ public class ProjectPanel extends JPanel implements Comparable<ProjectPanel> {
         final JPanel centerPane = new JPanel(new GridLayout(3, 1));
 
         final JLabel difficulty = new JLabel(Project.DIFFICULTY[project.getLevel() - 1]);
-        final JLabel name = new JLabel(project.getName());
+        final JLabel name = new JLabel();
         final JLabel category = new JLabel(project.getCategory());
 
         final JButton open = new JButton("Open");
+
+        final StringBuilder builder = new StringBuilder();
+        final Pattern pattern = Pattern.compile("[A-Z]?[a-z]+|[0-9]+");
+        final Matcher matcher = pattern.matcher(project.getName());
+        while (matcher.find()) {
+            builder.append(matcher.group());
+            builder.append(' ');
+        }
+        builder.trimToSize();
+        name.setText(builder.toString());
+        if(name.getText().length() == 0){
+            name.setText(project.getName());
+        }
 
         complete = new JLabel(project.isComplete() ? new ImageIcon(Global.getImage(Global.COMPLETE_IMAGE)) : null);
 
