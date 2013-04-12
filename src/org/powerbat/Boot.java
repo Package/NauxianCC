@@ -1,20 +1,22 @@
 package org.powerbat;
 
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.swing.Timer;
 
 import org.powerbat.configuration.Global;
 import org.powerbat.configuration.Global.Paths;
+import org.powerbat.executor.Executor;
 import org.powerbat.gui.GUI;
 import org.powerbat.gui.Splash;
 import org.powerbat.methods.Updater;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
 
 /**
  * The boot class is responsible for basic loading for the client. Bringing all
@@ -26,6 +28,7 @@ import java.lang.reflect.InvocationTargetException;
  * running this application.
  * <br>
  * <br>
+ *
  * @author Naux
  * @version 1.0
  * @since 1.0
@@ -42,6 +45,22 @@ public class Boot {
      */
 
     public static void main(String[] args) {
+        if (!Executor.hasJDKInstalled()) {
+            final int option = JOptionPane.showConfirmDialog(null, "<html>You need to have JDK installed to run Powerbat.<br>Click 'Ok' if you would like to go to the JDK site.</html>", "JDK Required",
+                    JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                final Desktop desktop = Desktop.getDesktop();
+                if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        desktop.browse(new URI("www.oracle.com/technetwork/java/javase/downloads/"));
+                    } catch (Exception ignored) {
+
+                    }
+                }
+            }
+            System.exit(0);
+            return;
+        }
         Paths.build();
         Global.loadImages();
         Splash.setStatus("Loading");
