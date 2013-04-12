@@ -23,8 +23,9 @@ public class Tip {
      */
 
     public static String getRandom() {
-        final int tipNumber = new Random().nextInt(TIPS.length);
-        return "Tip #" + (tipNumber + 1) + ": " + TIPS[tipNumber];
+        return null;
+        //final int tipNumber = new Random().nextInt(TIPS.length);
+        //return "Tip #" + (tipNumber + 1) + ": " + TIPS[tipNumber];
     }
 
 }

@@ -8,7 +8,7 @@ import org.powerbat.executor.Result;
 import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "Logic", instructions = "Return true if the array has three of the same element in a row.\n{1, 4, 5, 5, 5, 8} -> true\n{1, 4, 5, 6, 5, 5, 8} -> false", version = 0.0d, className = "HasTriple", level = 2, method = "boolean hasTriple(int[] nums)")
+@Manifest(category = "Logic", instructions = "Return true if the array has three of the same element in a row.\n{1, 4, 5, 5, 5, 8} -> true\n{1, 4, 5, 6, 5, 5, 8} -> false", version = 1.0d, className = "HasTriple", level = 2, method = "boolean hasTriple(int[] nums)")
 public class HasTripleRunner extends Runner {
 
 	@Override

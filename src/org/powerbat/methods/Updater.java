@@ -110,6 +110,7 @@ public class Updater {
                 }
                 final double current = currentRunnersList.get(key);
                 final double updated = updatedRunnersList.get(key);
+                System.out.printf("%s: v: %g, n: %g\n", key, currentRunnersList.get(key), updatedRunnersList.get(key));
                 if (updated > current) {
                     download(key, src);
                 }

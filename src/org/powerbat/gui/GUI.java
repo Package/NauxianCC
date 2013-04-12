@@ -1,6 +1,8 @@
 package org.powerbat.gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -90,7 +92,7 @@ public class GUI {
         if (tabByName(project.getName()) == null) {
             final Image image = Global.getImage(Global.CLOSE_IMAGE);
             final ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-            final JLabel button = new JLabel(icon, JLabel.CENTER);
+            final JButton button = new JButton(icon);
             final JLabel label = new JLabel(project.getName());
             final JPanel pane = new JPanel(new BorderLayout());
             final JPanel main = new JPanel(new BorderLayout());
@@ -110,12 +112,13 @@ public class GUI {
 
             label.setLocation(pane.getWidth() - label.getWidth(), pane.getY());
 
+            button.setHorizontalTextPosition(JButton.CENTER);
+            button.setVerticalAlignment(JButton.CENTER);
             button.setToolTipText("Close Project");
-            button.setOpaque(false);
-            button.setPreferredSize(new Dimension(30, 30));
-            button.addMouseListener(new MouseAdapter() {
+            //button.setOpaque(false);
+            button.addActionListener(new ActionListener() {
                 @Override
-                public void mouseClicked(final MouseEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     removeTab(project.getName());
                 }
             });
