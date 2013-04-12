@@ -43,8 +43,9 @@ public class Boot {
 
     public static void main(String[] args) {
         if (!Executor.hasJDKInstalled()) {
-            final int option = JOptionPane.showConfirmDialog(null, "<html>You need to have JDK installed to run Powerbat.<br>Click 'Ok' if you would like to go to the JDK site.</html>", "JDK Required",
-                    JOptionPane.OK_CANCEL_OPTION);
+            final int option = JOptionPane.showConfirmDialog(null,
+                    "<html>You need to have JDK installed to run Powerbat.<br>Click 'Ok' if you would like to go to the JDK site.</html>", "JDK Required",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
                 final Desktop desktop = Desktop.getDesktop();
                 if (desktop.isSupported(Desktop.Action.BROWSE)) {
