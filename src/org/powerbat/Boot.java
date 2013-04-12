@@ -1,8 +1,6 @@
 package org.powerbat;
 
 import javax.swing.*;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import org.powerbat.configuration.Global;
 import org.powerbat.configuration.Global.Paths;
@@ -14,7 +12,6 @@ import org.powerbat.methods.Updater;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 
