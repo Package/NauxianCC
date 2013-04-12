@@ -43,7 +43,6 @@ public class Global {
         imgs = new BufferedImage[URLs.IMAGES.length];
         for (int i = 0; i < URLs.IMAGES.length; i++) {
             try {
-                System.out.println(Global.class.getResource("/resources/splash.png"));
                 imgs[i] = ImageIO.read(Global.class.getResourceAsStream(URLs.IMAGES[i]));
             } catch (Exception e) {
                 e.printStackTrace();

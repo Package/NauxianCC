@@ -102,13 +102,11 @@ public class Updater {
             }
             for (final String key : updatedRunnersList.keySet()) {
                 if (!currentRunnersList.containsKey(key)) {
-                    System.out.println("Did not contain: " + key);
                     download(key, src);
                     continue;
                 }
                 final double current = currentRunnersList.get(key);
                 final double updated = updatedRunnersList.get(key);
-                System.out.printf("%s: v: %g, n: %g\n", key, currentRunnersList.get(key), updatedRunnersList.get(key));
                 if (updated > current) {
                     download(key, src);
                 }
