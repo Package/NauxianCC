@@ -69,7 +69,7 @@ public class JavaEditor extends JPanel implements KeyListener, ActionListener, F
         final JButton button = new JButton("Run");
         button.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        button.setPreferredSize(new Dimension(200, 30));
+        button.setPreferredSize(new Dimension(200, button.getPreferredSize().height));
         button.setToolTipText("Runs the project. (Ctrl+R)");
 
         clear = new JButton("Clear Project");

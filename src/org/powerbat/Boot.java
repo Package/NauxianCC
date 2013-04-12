@@ -2,6 +2,7 @@ package org.powerbat;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.Timer;
 
@@ -67,7 +68,7 @@ public class Boot {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(new NimbusLookAndFeel());
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     Splash.setStatus("Building GUI");
                     new GUI();
                     splash.shouldDispose(true);
