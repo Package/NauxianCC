@@ -73,7 +73,7 @@ public class Updater {
             }
             final BufferedReader br = new BufferedReader(new FileReader(sourceFile));
             final ArrayList<String> src = new ArrayList<>();
-            src.add(URLs.HOME);
+            src.add(URLs.BIN);
             String next;
             while ((next = br.readLine()) != null) {
                 if (!next.contains("#")) {

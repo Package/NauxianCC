@@ -130,11 +130,12 @@ public class Global {
     public static class URLs {
 
         public static final String HOME = "https://raw.github.com/Naux/Powerbat/master/src/org/powerbat/runners/";
-        public static final String BIN = "/resources/";
-        public static final String SPLASH = BIN + "splash.png";
-        public static final String ICON = BIN + "icon.png";
-        public static final String CLOSE = BIN + "close.png";
-        public static final String COMPLETE = BIN + "complete.png";
+        public static final String BIN = "https://github.com/Naux/Powerbat/tree/master/bin/org/powerbat/runners";
+        public static final String RESOURCES = "/resources/";
+        public static final String SPLASH = RESOURCES + "splash.png";
+        public static final String ICON = RESOURCES + "icon.png";
+        public static final String CLOSE = RESOURCES + "close.png";
+        public static final String COMPLETE = RESOURCES + "complete.png";
         public static final String[] IMAGES = new String[]{SPLASH, ICON, CLOSE, COMPLETE};
     }
 
