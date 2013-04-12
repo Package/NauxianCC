@@ -24,7 +24,7 @@ public class GUI {
 
     private static JTabbedPane tabs;
 
-    private static final Dimension TAB_SIZE = new Dimension(170, 30);
+    private static final Dimension TAB_SIZE = new Dimension(170, 50);
 
     /**
      * Creates a new GUI instance. Should only be done once per
@@ -98,7 +98,7 @@ public class GUI {
             final JPanel main = new JPanel(new BorderLayout());
 
             pane.setName(project.getName());
-            pane.setPreferredSize(new Dimension(140, 30));
+            pane.setPreferredSize(new Dimension(140, 50));
             pane.setOpaque(false);
             pane.add(label, BorderLayout.CENTER);
 
@@ -113,9 +113,8 @@ public class GUI {
             label.setLocation(pane.getWidth() - label.getWidth(), pane.getY());
 
             button.setHorizontalTextPosition(JButton.CENTER);
-            button.setVerticalAlignment(JButton.CENTER);
+            button.setVerticalTextPosition(JButton.CENTER);
             button.setToolTipText("Close Project");
-            //button.setOpaque(false);
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
