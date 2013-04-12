@@ -4,10 +4,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import org.powerbat.Boot;
 import org.powerbat.gui.Splash;
 import org.powerbat.methods.Updater;
 
@@ -21,8 +21,6 @@ import org.powerbat.methods.Updater;
  * @since 1.0
  */
 public class Global {
-
-    // TODO: fix this
 
     private static BufferedImage[] imgs;
 
@@ -42,21 +40,11 @@ public class Global {
      * @since 1.0
      */
 
-    @Deprecated
     public static void loadImages() {
         imgs = new BufferedImage[URLs.IMAGES.length];
         for (int i = 0; i < URLs.IMAGES.length; i++) {
             try {
-                final File f = new File(Paths.SETTINGS, URLs.IMAGE_NAMES[i] + ".png");
-                if (f.exists()) {
-                    imgs[i] = ImageIO.read(f);
-                } else {
-                    if (Updater.isInternetReachable()) {
-                        System.out.println("Downloading images");
-                        imgs[i] = ImageIO.read(new URL(URLs.IMAGES[i]));
-                        ImageIO.write(imgs[i], "png", f);
-                    }
-                }
+                imgs[i] = ImageIO.read(Global.class.getResourceAsStream(URLs.IMAGES[i]));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -115,7 +103,7 @@ public class Global {
             for (final String s : PATHS) {
                 final File f = new File(s);
                 if (!f.exists()) {
-                    Splash.setStatus("Creating Dirctory: " + s);
+                    Splash.setStatus("Creating Directory: " + s);
                     f.mkdir();
                 }
             }
@@ -139,18 +127,15 @@ public class Global {
      * @since 1.0
      */
 
-    @Deprecated
     public static class URLs {
 
-        //TODO: fix url and package
         public static final String HOME = "https://raw.github.com/Naux/Powerbat/master/src/org/powerbat/runners/";
-        public static final String SPLASH = "http://bit.ly/P0UNyH";
-        public static final String BIN = HOME + "bin/";
+        public static final String BIN = "/resources/";
+        public static final String SPLASH = BIN + "splash.png";
         public static final String ICON = BIN + "icon.png";
         public static final String CLOSE = BIN + "close.png";
         public static final String COMPLETE = BIN + "complete.png";
         public static final String[] IMAGES = new String[]{SPLASH, ICON, CLOSE, COMPLETE};
-        public static final String[] IMAGE_NAMES = new String[]{"splash", "icon", "close", "complete"};
     }
 
     /**

@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
@@ -72,7 +73,7 @@ public class Updater {
             }
             final BufferedReader br = new BufferedReader(new FileReader(sourceFile));
             final ArrayList<String> src = new ArrayList<>();
-            src.add(URLs.BIN);
+            src.add(URLs.HOME);
             String next;
             while ((next = br.readLine()) != null) {
                 if (!next.contains("#")) {
@@ -136,12 +137,13 @@ public class Updater {
     private static void download(String runnerName, String src) {
         try {
             Splash.setStatus("Downloading " + runnerName);
-            final byte[] data = IOUtils.download(new URL(src + "java/" + runnerName + ".class"));
+            final byte[] data = IOUtils.download(new URL(src + runnerName + ".class"));
             final String category = CustomClassLoader.loadClassFromData(runnerName, data).getAnnotation(Manifest.class).category();
             final File out = new File(Global.Paths.SOURCE + File.separator + category, runnerName + ".class");
             IOUtils.write(out, data);
         } catch (IOException e) {
-            System.err.println("Unable to donwload " + runnerName);
+            System.err.println("Unable to download " + runnerName);
+            e.printStackTrace();
         }
 
     }
@@ -158,7 +160,7 @@ public class Updater {
     private static void parseUpdated(byte[] data, String src) {
         try {
             final BufferedReader in = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(data)));
-            if (src.equals(URLs.BIN)) {
+            if (src.equals(URLs.HOME)) {
                 updatedClientVersion = Double.parseDouble(in.readLine());
             }
             String s;
