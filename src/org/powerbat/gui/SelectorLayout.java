@@ -14,6 +14,24 @@ import javax.swing.SwingUtilities;
 public class SelectorLayout extends FlowLayout {
 
     /**
+     * Creates a new flow layout manager with the indicated alignment
+     * and the indicated horizontal and vertical gaps.
+     * <p/>
+     *
+     * The value of the alignment argument must be one of
+     * <code>FlowLayout.LEFT</code>, <code>FlowLayout.RIGHT</code>,
+     * <code>FlowLayout.CENTER</code>, <code>FlowLayout.LEADING</code>,
+     * or <code>FlowLayout.TRAILING</code>.
+     *
+     * @param align the alignment value
+     * @param hgap  the horizontal gap between components
+     * @param vgap  the vertical gap between components
+     */
+    public SelectorLayout(int align, int hgap, int vgap) {
+        super(align, hgap, vgap);
+    }
+
+    /**
      * Returns the preferred dimension needed to layout the target
      * container.
      *
