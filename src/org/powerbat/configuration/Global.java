@@ -143,7 +143,7 @@ public class Global {
     public static class URLs {
 
         //TODO: fix url and package
-        public static final String HOME = "http://powerbat.webs.com/org/powerbat/";
+        public static final String HOME = "https://raw.github.com/Naux/Powerbat/master/src/org/powerbat/runners/";
         public static final String SPLASH = "http://bit.ly/P0UNyH";
         public static final String BIN = HOME + "bin/";
         public static final String ICON = BIN + "icon.png";

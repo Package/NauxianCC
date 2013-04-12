@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class Updater {
     private static double updatedClientVersion = 0.0;
     private static HashMap<String, Double> updatedRunnersList = new HashMap<>();
 
-    private static double currentClientVersion = 1.02;
+    private static double currentClientVersion = 1.00;
     private static HashMap<String, Double> currentRunnersList = new HashMap<>();
 
     private Updater() {
@@ -60,12 +61,13 @@ public class Updater {
     public static void update() {
         ProjectData.loadCurrent();
         if (!isInternetReachable()) {
+            JOptionPane.showMessageDialog(null, "Unable to connect to internet; unable to check versions.", "Update", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String[] sources;
         try {
             final File sourceFile = new File(Paths.SETTINGS, "sources.txt");
-            if(!sourceFile.exists()){
+            if (!sourceFile.exists()) {
                 sourceFile.createNewFile();
             }
             final BufferedReader br = new BufferedReader(new FileReader(sourceFile));
@@ -183,7 +185,7 @@ public class Updater {
         try {
             return IOUtils.download(new URL(src + "version.txt"));
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Unable to connect to internet; unable to check versions.", "Update", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
         return null;
     }
@@ -199,9 +201,10 @@ public class Updater {
     public static boolean isInternetReachable() {
         Splash.setStatus("Checking connection");
         try {
-            new URL(URLs.HOME).openConnection().getContent();
-        } catch (Exception ignored) {
+            return InetAddress.getByName("github.com").isReachable(2500);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return true;
+        return false;
     }
 }
