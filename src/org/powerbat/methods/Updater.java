@@ -87,7 +87,7 @@ public class Updater {
             sources = new String[]{URLs.BIN};
         }
         for (final String src : sources) {
-            byte[] updatedClientInfo = downloadCurrentClientInfo(src);
+            byte[] updatedClientInfo = downloadCurrentClientInfo();
             if (updatedClientInfo == null) {
                 return;
             }
@@ -160,7 +160,7 @@ public class Updater {
     private static void parseUpdated(byte[] data, String src) {
         try {
             final BufferedReader in = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(data)));
-            if (src.equals(URLs.HOME)) {
+            if (src.equals(URLs.BIN)) {
                 updatedClientVersion = Double.parseDouble(in.readLine());
             }
             String s;
@@ -177,15 +177,14 @@ public class Updater {
      * Reads information from a source. This will automatically be called for
      * the default directory, as implemented by myself.
      *
-     * @param src The URL for the bin.
      * @return The byte data to be read.
      * @see {@link Updater#parseUpdated(byte[], String)}
      * @since 1.0
      */
 
-    private static byte[] downloadCurrentClientInfo(String src) {
+    private static byte[] downloadCurrentClientInfo() {
         try {
-            return IOUtils.download(new URL(src + "version.txt"));
+            return IOUtils.download(new URL(URLs.VERSION));
         } catch (IOException e) {
             e.printStackTrace();
         }

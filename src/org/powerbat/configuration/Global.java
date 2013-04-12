@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.powerbat.Boot;
 import org.powerbat.gui.Splash;
 import org.powerbat.methods.Updater;
 
@@ -44,6 +43,7 @@ public class Global {
         imgs = new BufferedImage[URLs.IMAGES.length];
         for (int i = 0; i < URLs.IMAGES.length; i++) {
             try {
+                System.out.println(Global.class.getResource("/resources/splash.png"));
                 imgs[i] = ImageIO.read(Global.class.getResourceAsStream(URLs.IMAGES[i]));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -129,8 +129,8 @@ public class Global {
 
     public static class URLs {
 
-        public static final String HOME = "https://raw.github.com/Naux/Powerbat/master/src/org/powerbat/runners/";
-        public static final String BIN = "https://github.com/Naux/Powerbat/tree/master/bin/org/powerbat/runners";
+        public static final String BIN = "https://github.com/Naux/Powerbat/blob/master/bin/org/powerbat/runners/";
+        public static final String VERSION = "https://raw.github.com/Naux/Powerbat/master/bin/org/powerbat/runners/version.txt";
         public static final String RESOURCES = "/resources/";
         public static final String SPLASH = RESOURCES + "splash.png";
         public static final String ICON = RESOURCES + "icon.png";
