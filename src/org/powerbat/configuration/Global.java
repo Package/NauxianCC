@@ -130,7 +130,6 @@ public class Global {
     public static class URLs {
 
         public static final String BIN = "https://github.com/Naux/Powerbat/blob/master/bin/org/powerbat/runners/";
-        public static final String VERSION = "https://raw.github.com/Naux/Powerbat/master/bin/org/powerbat/runners/version.txt";
         public static final String RESOURCES = "/resources/";
         public static final String SPLASH = RESOURCES + "splash.png";
         public static final String ICON = RESOURCES + "icon.png";

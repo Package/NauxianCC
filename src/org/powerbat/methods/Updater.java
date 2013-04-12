@@ -1,11 +1,6 @@
 package org.powerbat.methods;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
@@ -87,7 +82,7 @@ public class Updater {
             sources = new String[]{URLs.BIN};
         }
         for (final String src : sources) {
-            byte[] updatedClientInfo = downloadCurrentClientInfo();
+            byte[] updatedClientInfo = downloadCurrentClientInfo(src);
             if (updatedClientInfo == null) {
                 return;
             }
@@ -137,7 +132,7 @@ public class Updater {
     private static void download(String runnerName, String src) {
         try {
             Splash.setStatus("Downloading " + runnerName);
-            final byte[] data = IOUtils.download(new URL(src + runnerName + ".class"));
+            final byte[] data = IOUtils.download(new URL(src + runnerName + ".class" + (src.contains("github.com") ? "?raw=true" : "")));
             final String category = CustomClassLoader.loadClassFromData(runnerName, data).getAnnotation(Manifest.class).category();
             final File out = new File(Global.Paths.SOURCE + File.separator + category, runnerName + ".class");
             IOUtils.write(out, data);
@@ -182,9 +177,9 @@ public class Updater {
      * @since 1.0
      */
 
-    private static byte[] downloadCurrentClientInfo() {
+    private static byte[] downloadCurrentClientInfo(final String src) {
         try {
-            return IOUtils.download(new URL(URLs.VERSION));
+            return IOUtils.download(new URL(URLs.BIN + "version.txt" + (src.equals(URLs.BIN) ? "?raw=true" : "")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -202,7 +197,7 @@ public class Updater {
     public static boolean isInternetReachable() {
         Splash.setStatus("Checking connection");
         try {
-            return InetAddress.getByName("github.com").isReachable(2500);
+            return InetAddress.getByName("github.com").isReachable(10000);
         } catch (Exception e) {
             e.printStackTrace();
         }
