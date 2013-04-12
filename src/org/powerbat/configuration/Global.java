@@ -22,6 +22,8 @@ import org.powerbat.methods.Updater;
  */
 public class Global {
 
+    // TODO: fix this
+
     private static BufferedImage[] imgs;
 
     public static final int SPLASH_IMAGE = 0;
@@ -40,6 +42,7 @@ public class Global {
      * @since 1.0
      */
 
+    @Deprecated
     public static void loadImages() {
         imgs = new BufferedImage[URLs.IMAGES.length];
         for (int i = 0; i < URLs.IMAGES.length; i++) {
@@ -121,7 +124,7 @@ public class Global {
                 try {
                     complete.createNewFile();
                 } catch (IOException e) {
-                    System.err.print("Failed to create data file.");
+                    System.err.println("Failed to create data file.");
                     System.err.println("Completion progress will not be saved, code still will be.");
                 }
             }
@@ -136,7 +139,10 @@ public class Global {
      * @since 1.0
      */
 
+    @Deprecated
     public static class URLs {
+
+        //TODO: fix url and package
         public static final String HOME = "http://powerbat.webs.com/org/powerbat/";
         public static final String SPLASH = "http://bit.ly/P0UNyH";
         public static final String BIN = HOME + "bin/";
