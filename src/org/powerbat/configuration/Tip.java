@@ -12,9 +12,6 @@ import java.util.Random;
 public class Tip {
 
     private final static String[] TIPS = new String[]{
-            "There are 5 categories: AP, Recursive, String, Logic and Array",
-            "Highscores may be coming in soon.",
-            "XML-based data files are being worked on."
     };
 
     /**
