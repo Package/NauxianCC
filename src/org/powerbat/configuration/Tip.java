@@ -12,6 +12,10 @@ import java.util.Random;
 public class Tip {
 
     private final static String[] TIPS = new String[]{
+
+            "XML based files are coming",
+            "CSS options are coming"
+
     };
 
     /**
@@ -23,9 +27,8 @@ public class Tip {
      */
 
     public static String getRandom() {
-        return null;
-        //final int tipNumber = new Random().nextInt(TIPS.length);
-        //return "Tip #" + (tipNumber + 1) + ": " + TIPS[tipNumber];
+        final int tipNumber = new Random().nextInt(TIPS.length);
+        return "Tip #" + (tipNumber + 1) + ": " + TIPS[tipNumber];
     }
 
 }
