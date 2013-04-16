@@ -25,10 +25,10 @@ public class Project {
     public static final String[] DIFFICULTY = new String[]{"Beginner", "Intermediate", "Advanced", "Challenging", "Legendary"};
     public static final Color[] DIFFICULTY_COLOR = new Color[]{
             new Color(51, 51, 51),
-            new Color(91, 91, 221),
-            new Color(162, 154, 82),
-            new Color(132, 205, 72),
-            new Color(107, 50, 30)
+            new Color(79, 55, 221),
+            new Color(162, 133, 57),
+            new Color(65, 132, 26),
+            new Color(91, 44, 23)
     };
 
     private final String name;
