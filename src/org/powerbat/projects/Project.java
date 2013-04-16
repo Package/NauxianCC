@@ -1,5 +1,6 @@
 package org.powerbat.projects;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,6 +23,13 @@ import org.powerbat.methods.IOUtils;
 public class Project {
 
     public static final String[] DIFFICULTY = new String[]{"Beginner", "Intermediate", "Advanced", "Challenging", "Legendary"};
+    public static final Color[] DIFFICULTY_COLOR = new Color[]{
+            new Color(51, 51, 51),
+            new Color(91, 91, 221),
+            new Color(162, 154, 82),
+            new Color(132, 205, 72),
+            new Color(107, 50, 30)
+    };
 
     private final String name;
     private final File file;
@@ -37,8 +45,8 @@ public class Project {
     /**
      * Constructs a new Project and reads file data
      *
-     * @param name          Name of the Project
-     * @param runnerFile    The file to read data from
+     * @param name       Name of the Project
+     * @param runnerFile The file to read data from
      */
 
     public Project(final String name, final File runnerFile) {
@@ -72,7 +80,7 @@ public class Project {
     /**
      * This is used for loading dynamic files, including compiled files and soon to be XML/CSS files
      *
-     * @return   The name of the Runner
+     * @return The name of the Runner
      */
 
     public String getName() {
@@ -82,7 +90,7 @@ public class Project {
     /**
      * Used to sort and distribute difficulties
      *
-     * @return    The category that this Runner falls into
+     * @return The category that this Runner falls into
      */
 
     public String getSortName() {
@@ -91,7 +99,6 @@ public class Project {
 
 
     /**
-     *
      * @see org.powerbat.projects.Project#getName()
      */
 
@@ -221,7 +228,7 @@ public class Project {
 
     /**
      * Saves the code so the user can resume the project at a later time
-     *
+     * <p/>
      * Compilation is not required, so non-working code can be accepted.
      *
      * @param code The <tt>String</tt> of code to save

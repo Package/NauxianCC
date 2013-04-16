@@ -1,12 +1,11 @@
 package org.powerbat.gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 import org.powerbat.configuration.Global;
 import org.powerbat.methods.Updater;
@@ -24,7 +23,10 @@ public class GUI {
 
     private static JTabbedPane tabs;
 
-    private static final Dimension TAB_SIZE = new Dimension(170, 50);
+    private static final Border PRESET = new BevelBorder(BevelBorder.RAISED);
+    private static final Border PRESS = new BevelBorder(BevelBorder.LOWERED);
+
+    private static final Dimension TAB_SIZE = new Dimension(170, 30);
 
     /**
      * Creates a new GUI instance. Should only be done once per
@@ -92,7 +94,7 @@ public class GUI {
         if (tabByName(project.getName()) == null) {
             final Image image = Global.getImage(Global.CLOSE_IMAGE);
             final ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-            final JButton button = new JButton(icon);
+            final JLabel close = new JLabel(icon, SwingConstants.CENTER);
             final JLabel label = new JLabel(project.getName());
             final JPanel pane = new JPanel(new BorderLayout());
             final JPanel main = new JPanel(new BorderLayout());
@@ -105,20 +107,37 @@ public class GUI {
             tabs.add(temp, tabs.getTabCount());
             tabs.setTabComponentAt(tabs.getTabCount() - 1, main);
 
-            main.add(button, BorderLayout.EAST);
+            main.add(close, BorderLayout.EAST);
             main.add(pane, BorderLayout.CENTER);
             main.setOpaque(false);
             main.setPreferredSize(TAB_SIZE);
 
             label.setLocation(pane.getWidth() - label.getWidth(), pane.getY());
 
-            button.setHorizontalTextPosition(JButton.CENTER);
-            button.setVerticalTextPosition(JButton.CENTER);
-            button.setToolTipText("Close Project");
-            button.addActionListener(new ActionListener() {
+            close.setBorder(PRESET);
+            close.addMouseListener(new MouseListener() {
                 @Override
-                public void actionPerformed(final ActionEvent e) {
+                public void mouseClicked(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    close.setBorder(PRESS);
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    close.setBorder(PRESET);
                     removeTab(project.getName());
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
                 }
             });
 

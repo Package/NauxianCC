@@ -2,9 +2,12 @@ package org.powerbat.methods;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
@@ -93,12 +96,10 @@ public class Updater {
                 System.exit(0);
                 return;
             }
-            final HashMap<String, ArrayList<Project>> data = ProjectData.DATA;
+            final ArrayList<Project> data = ProjectData.DATA;
             final String runner = "Runner";
-            for (final String key : data.keySet()) {
-                for (final Project p : data.get(key)) {
-                    currentRunnersList.put(p.getName() + runner, p.getVersion());
-                }
+            for (final Project p : data) {
+                currentRunnersList.put(p.getName() + runner, p.getVersion());
             }
             for (final String key : updatedRunnersList.keySet()) {
                 if (!currentRunnersList.containsKey(key)) {
@@ -131,8 +132,7 @@ public class Updater {
         try {
             Splash.setStatus("Downloading " + runnerName);
             final byte[] data = IOUtils.download(new URL(src + runnerName + ".class" + (src.contains("github.com") ? "?raw=true" : "")));
-            final String category = CustomClassLoader.loadClassFromData(runnerName, data).getAnnotation(Manifest.class).category();
-            final File out = new File(Global.Paths.SOURCE + File.separator + category, runnerName + ".class");
+            final File out = new File(Global.Paths.SOURCE, runnerName + ".class");
             IOUtils.write(out, data);
         } catch (IOException e) {
             System.err.println("Unable to download " + runnerName);
@@ -195,8 +195,13 @@ public class Updater {
     public static boolean isInternetReachable() {
         Splash.setStatus("Checking connection");
         try {
-            return InetAddress.getByName("github.com").isReachable(10000);
-        } catch (Exception e) {
+            final Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()) {
+                if (interfaces.nextElement().isUp()) {
+                    return true;
+                }
+            }
+        } catch (SocketException e) {
             e.printStackTrace();
         }
         return false;

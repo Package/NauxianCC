@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 import org.powerbat.projects.Project;
 import org.powerbat.projects.ProjectData;
@@ -36,12 +35,10 @@ public class ProjectSelector extends JPanel {
         super(new BorderLayout());
         final String toolTip = " information. Press 'Open' to start it.";
         final JPanel selector = new JPanel(new SelectorLayout(FlowLayout.LEADING, 5, 5));
-        for (final String category : ProjectData.DATA.keySet()) {
-            for (final Project project : ProjectData.DATA.get(category)) {
-                final ProjectPanel temp = new ProjectPanel(project);
-                PROJECTS.add(temp);
-                temp.setToolTipText(project.getName().concat(toolTip));
-            }
+        for (final Project project : ProjectData.DATA) {
+            final ProjectPanel temp = new ProjectPanel(project);
+            PROJECTS.add(temp);
+            temp.setToolTipText(project.getName().concat(toolTip));
         }
         Collections.sort(PROJECTS, new Comparator<ProjectPanel>() {
 
@@ -51,8 +48,8 @@ public class ProjectSelector extends JPanel {
             }
 
         });
-        for (final ProjectPanel pane : PROJECTS) {
-            selector.add(pane);
+        for(final ProjectPanel panel : PROJECTS){
+            selector.add(panel);
         }
         add(new JScrollPane(selector), BorderLayout.CENTER);
     }

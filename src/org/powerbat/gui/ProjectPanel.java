@@ -36,7 +36,7 @@ public class ProjectPanel extends JPanel implements Comparable<ProjectPanel> {
     private final Project project;
 
     private static final Font SANS_18 = new Font(Font.SANS_SERIF, Font.BOLD, 18);
-    private static final Font SANS_15 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+    private static final Font SANS_15 = new Font(Font.SANS_SERIF, Font.BOLD, 13);
     private final JLabel complete;
 
     /**
@@ -99,12 +99,15 @@ public class ProjectPanel extends JPanel implements Comparable<ProjectPanel> {
 
         difficulty.setPreferredSize(new Dimension(200, 30));
         difficulty.setFont(SANS_15);
+        difficulty.setForeground(Project.DIFFICULTY_COLOR[project.getLevel() - 1]);
 
         name.setPreferredSize(new Dimension(200, 50));
         name.setFont(SANS_18);
+        name.setForeground(Project.DIFFICULTY_COLOR[project.getLevel() - 1]);
 
         category.setPreferredSize(new Dimension(200, 30));
         category.setFont(SANS_15);
+        category.setForeground(Project.DIFFICULTY_COLOR[project.getLevel() - 1]);
 
         centerPane.add(name);
         centerPane.add(category);

@@ -17,7 +17,7 @@ import org.powerbat.configuration.Global.Paths;
 
 public class ProjectData {
 
-    public static HashMap<String, ArrayList<Project>> DATA;
+    public static ArrayList<Project> DATA;
 
     private static final FileFilter CLASS_FILES = new FileFilter() {
         public boolean accept(File file) {
@@ -39,27 +39,20 @@ public class ProjectData {
      */
 
     public static void loadCurrent() {
-        final HashMap<String, ArrayList<Project>> map = new HashMap<>();
+        DATA = new ArrayList<>();
         final File root = new File(Paths.SOURCE);
         if (!root.exists() || root.listFiles() == null) {
             return;
         }
-        for (final File parent : root.listFiles()) {
-            if (parent.isDirectory()) {
-                final ArrayList<Project> projects = new ArrayList<>();
-                for (final File child : parent.listFiles(CLASS_FILES)) {
-                    final String name = child.getName();
-                    final int idx = name.indexOf("Runner.class");
-                    if (idx == -1) {
-                        continue;
-                    }
-                    final Project p = new Project(name.substring(0, idx), child);
-                    projects.add(p);
-                }
-                map.put(parent.getName(), projects);
+        for (final File file : root.listFiles()) {
+            final String name = file.getName();
+            final int idx = name.indexOf("Runner.class");
+            if (idx == -1) {
+                continue;
             }
+            final Project p = new Project(name.substring(0, idx), file);
+            DATA.add(p);
         }
-        DATA = map;
     }
 
 }

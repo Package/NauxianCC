@@ -83,14 +83,9 @@ public class Global {
         public static final String APP_DATA = getAppData();
         public static final String HOME = APP_DATA + File.separator + "Powerbat";
         public static final String SOURCE = HOME + File.separator + "src";
-        public static final String ARRAY = SOURCE + File.separator + "array";
-        public static final String STRING = SOURCE + File.separator + "string";
-        public static final String LOGIC = SOURCE + File.separator + "logic";
-        public static final String AP = SOURCE + File.separator + "AP";
-        public static final String RECURSIVE = SOURCE + File.separator + "recursive";
         public static final String SETTINGS = HOME + File.separator + "data";
         public static final String JAVA = SETTINGS + File.separator + "java";
-        public static final String[] PATHS = new String[]{APP_DATA, HOME, SOURCE, ARRAY, STRING, LOGIC, AP, RECURSIVE, SETTINGS, JAVA};
+        public static final String[] PATHS = new String[]{APP_DATA, HOME, SOURCE, SETTINGS, JAVA};
 
         /**
          * Used to build external folder sets. Internal use only.
