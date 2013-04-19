@@ -4,7 +4,7 @@
         <version value="1.0"/>
         <author value="Naux"/>
         <name value="AddMinus"/>
-        <description value="Do a sweep through the list of numbers.\nFor each number, if it is even, add it to the sum;\nif it is odd minus it from the sum. Return the sum when this is complete."/>
+        <description value="Do a sweep through the list of numbers.&#xA;For each number, if it is even, add it to the sum;&#xA;if it is odd minus it from the sum. &#xA;Return the sum when this is complete."/>
         <category value="2"/>
     </data>
     <skeleton>

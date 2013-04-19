@@ -36,15 +36,8 @@ public class XMLParser {
     }
 
     public void prepare(final File file) throws IOException, SAXException {
-        if(document == null){
-            return;
-        }
         document = builder.parse(file);
         document.getDocumentElement().normalize();
-    }
-
-    public void release(){
-        document = null;
     }
 
     public HashMap<String, String> getAttributeMapping() {

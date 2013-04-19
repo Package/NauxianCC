@@ -4,7 +4,7 @@
         <version value="1.0"/>
         <author value="Naux"/>
         <name value="AddDoubleOdd"/>
-        <description value="Add parameters x and y, but if x is odd, return double the sum. \nUse the &quot;addOdd&quot; method to perform this."/>
+        <description value="Add parameters x and y, but if x is odd, return double the sum. &#xA;Use the &quot;addOdd&quot; method to perform this."/>
         <category value="1"/>
     </data>
     <skeleton>

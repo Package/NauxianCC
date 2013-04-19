@@ -4,7 +4,7 @@
         <version value="1.0"/>
         <author value="Naux"/>
         <name value="PrimeNumber"/>
-        <description value="Return the nth prime number in method getPrim(int n).\n1-1000 inclusive\nAssume 2 is the first prime number."/>
+        <description value="Return the nth prime number in method getPrim(int n).&#xA;1-1000 inclusive&#xA;Assume 2 is the first prime number."/>
         <category value="5"/>
     </data>
     <skeleton>

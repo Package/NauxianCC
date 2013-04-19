@@ -4,7 +4,7 @@
         <version value="1.0"/>
         <author value="Naux"/>
         <name value="GroupRecursion"/>
-        <description value="Return true if any combination of the numbers can reach the target.\nStart will always be 0 to begin with.\nRemember that this is recursive."/>
+        <description value="Return true if any combination of the numbers can reach the target.&#xA;Start will always be 0 to begin with.&#xA;Remember that this is recursive."/>
         <category value="5"/>
     </data>
     <skeleton>

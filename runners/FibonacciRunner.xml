@@ -4,7 +4,7 @@
         <version value="1.0"/>
         <author value="Naux"/>
         <name value="Fibonacci"/>
-        <description value="Return the nth fibonacci number...\nRecursively."/>
+        <description value="Return the nth fibonacci number...&#xA;Recursively."/>
         <category value="4"/>
     </data>
     <skeleton>

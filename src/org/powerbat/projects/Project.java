@@ -65,10 +65,9 @@ public class Project {
         file = new File(Paths.JAVA + File.separator + name + ".java");
         runner = CustomClassLoader.loadClassFromFile(runnerFile);
         final XMLParser parser = XMLParser.getInstance();
-        final File xml = new File(Paths.SOURCE, name + ".xml");
+        final File xml = new File(Paths.SOURCE, name + "Runner.xml");
         parser.prepare(xml);
         this.properties = new Properties(parser.getAttributeMapping());
-        parser.release();
         this.name = name;
     }
 

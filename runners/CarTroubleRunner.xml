@@ -4,7 +4,7 @@
         <version value="1.0"/>
         <author value="Naux"/>
         <name value="CanReach"/>
-        <description value="Given parameters boolean lowGas and boolean lowOil, using the getWarning method return the following: \n0 if you have no issues\n1 if you have lowOil\n2 if you have lowGas, and 3 if you have both."/>
+        <description value="Given parameters boolean lowGas and boolean lowOil, using the getWarning method return the following:&#xA;0 if you have no issues&#xA;1 if you have lowOil&#xA;2 if you have lowGas&#xA;3 if you have both."/>
         <category value="1"/>
     </data>
     <skeleton>

@@ -4,7 +4,7 @@
         <version value="1.0"/>
         <author value="Naux"/>
         <name value="RoundSum"/>
-        <description value="Round each number to the nearest number divisible by 10.\nThen, return the sum of all the rounded numbers.\n5 rounds to 10\n14 rounds to 10\n23 rounds to 20."/>
+        <description value="Round each number to the nearest number divisible by 10.&#xA;Then, return the sum of all the rounded numbers.&#xA;5 rounds to 10&#xA;14 rounds to 10&#xA;23 rounds to 20."/>
         <category value="3"/>
     </data>
     <skeleton>
