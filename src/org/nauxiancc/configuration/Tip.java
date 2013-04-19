@@ -1,4 +1,4 @@
-package org.powerbat.configuration;
+package org.nauxiancc.configuration;
 
 import java.util.Random;
 
@@ -13,8 +13,10 @@ public class Tip {
 
     private final static String[] TIPS = new String[]{
 
-            "XML based files are coming",
-            "CSS options are coming"
+            "Adding searching soon",
+            "There is no cow level",
+            "Only through suffering, does one attain wisdom",
+            "Now with 0 calories!"
 
     };
 

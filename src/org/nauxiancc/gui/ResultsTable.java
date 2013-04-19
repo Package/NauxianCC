@@ -1,4 +1,4 @@
-package org.powerbat.gui;
+package org.nauxiancc.gui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -16,9 +16,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import org.powerbat.configuration.Global.Paths;
-import org.powerbat.executor.Result;
-import org.powerbat.projects.Project;
+import org.nauxiancc.configuration.Global.Paths;
+import org.nauxiancc.executor.Result;
+import org.nauxiancc.projects.Project;
 
 /**
  * This is always linked to a specific Java editor and project. It displays the

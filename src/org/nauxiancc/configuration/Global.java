@@ -1,4 +1,4 @@
-package org.powerbat.configuration;
+package org.nauxiancc.configuration;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.powerbat.gui.Splash;
-import org.powerbat.methods.Updater;
+import org.nauxiancc.gui.Splash;
+import org.nauxiancc.methods.Updater;
 
 /**
  * Used for file, directory and image creations. Contains information regarding
@@ -54,8 +54,6 @@ public class Global {
     /**
      * Used to return the loaded images. These are primarily for internal use
      * only.
-     *
-     * TODO: Pack images
      *
      * @param num The image instance to load.
      * @return Image instance from pre-loaded or defined images.

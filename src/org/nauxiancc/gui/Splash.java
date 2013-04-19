@@ -1,11 +1,6 @@
-package org.powerbat.gui;
+package org.nauxiancc.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -14,8 +9,8 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.powerbat.configuration.Global;
-import org.powerbat.configuration.Tip;
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.configuration.Tip;
 
 /**
  * The splash screen loaded before the main application. It displays information
@@ -173,6 +168,7 @@ public class Splash extends JFrame implements WindowListener, MouseListener {
         @Override
         public void paintComponent(Graphics g1) {
             Graphics2D g = (Graphics2D) g1;
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g.drawImage(Global.getImage(Global.SPLASH_IMAGE), 0, 0, this);
             g.setColor(COLOR);
             g.setFont(FONT);

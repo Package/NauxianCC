@@ -1,4 +1,4 @@
-package org.powerbat.executor;
+package org.nauxiancc.executor;
 
 /**
  * Post compilation during execution these results are provided by the Runners.
@@ -53,7 +53,7 @@ public class Result {
     }
 
     /**
-     * For usage in the {@link org.powerbat.gui.ResultsTable ResultsTable}
+     * For usage in the {@link org.nauxiancc.gui.ResultsTable ResultsTable}
      * instance. It is neither compared or used in any other class.
      *
      * @return Array of type <tt>Object</tt> to be used for displaying results.

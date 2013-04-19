@@ -1,11 +1,11 @@
-package org.powerbat.projects;
+package org.nauxiancc.projects;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.powerbat.configuration.Global.Paths;
+import org.nauxiancc.configuration.Global.Paths;
 
 /**
  * Loads locally found runners for the updater and for the loader. This will

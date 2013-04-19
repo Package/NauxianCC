@@ -1,4 +1,4 @@
-package org.powerbat.methods;
+package org.nauxiancc.methods;
 
 import java.io.*;
 import java.net.NetworkInterface;
@@ -10,12 +10,12 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
-import org.powerbat.configuration.Global;
-import org.powerbat.configuration.Global.Paths;
-import org.powerbat.configuration.Global.URLs;
-import org.powerbat.gui.Splash;
-import org.powerbat.projects.Project;
-import org.powerbat.projects.ProjectData;
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.configuration.Global.Paths;
+import org.nauxiancc.configuration.Global.URLs;
+import org.nauxiancc.gui.Splash;
+import org.nauxiancc.projects.Project;
+import org.nauxiancc.projects.ProjectData;
 
 /**
  * Updates all Runner information and program data. This is used in conjunction

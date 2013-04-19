@@ -1,7 +1,7 @@
-package org.powerbat.interfaces;
+package org.nauxiancc.interfaces;
 
-import org.powerbat.executor.Result;
-import org.powerbat.projects.Project;
+import org.nauxiancc.executor.Result;
+import org.nauxiancc.projects.Project;
 
 /**
  * All Runners must extend this class. It will handle all manifest properties

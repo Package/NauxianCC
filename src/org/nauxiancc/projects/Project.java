@@ -1,4 +1,4 @@
-package org.powerbat.projects;
+package org.nauxiancc.projects;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -6,13 +6,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.powerbat.configuration.Global.Paths;
-import org.powerbat.gui.ProjectPanel;
-import org.powerbat.gui.ProjectSelector;
-import org.powerbat.interfaces.Properties;
-import org.powerbat.methods.CustomClassLoader;
-import org.powerbat.methods.IOUtils;
-import org.powerbat.methods.XMLParser;
+import org.nauxiancc.configuration.Global.Paths;
+import org.nauxiancc.gui.ProjectPanel;
+import org.nauxiancc.gui.ProjectSelector;
+import org.nauxiancc.interfaces.Properties;
+import org.nauxiancc.methods.CustomClassLoader;
+import org.nauxiancc.methods.IOUtils;
+import org.nauxiancc.methods.XMLParser;
 import org.xml.sax.SAXException;
 
 /**
@@ -97,7 +97,7 @@ public class Project {
     }
 
     /**
-     * @see org.powerbat.projects.Project#getName()
+     * @see org.nauxiancc.projects.Project#getName()
      */
 
     @Override

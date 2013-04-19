@@ -1,4 +1,4 @@
-package org.powerbat.methods;
+package org.nauxiancc.methods;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

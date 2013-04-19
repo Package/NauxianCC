@@ -1,4 +1,4 @@
-package org.powerbat.executor;
+package org.nauxiancc.executor;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,11 +8,11 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Date;
 
-import org.powerbat.configuration.Global;
-import org.powerbat.gui.GUI;
-import org.powerbat.gui.JavaEditor;
-import org.powerbat.methods.CustomClassLoader;
-import org.powerbat.projects.Project;
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.gui.GUI;
+import org.nauxiancc.gui.JavaEditor;
+import org.nauxiancc.methods.CustomClassLoader;
+import org.nauxiancc.projects.Project;
 
 /**
  * Source code compiler and executor. This is used internally during the run of

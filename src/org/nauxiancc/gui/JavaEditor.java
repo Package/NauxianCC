@@ -1,4 +1,4 @@
-package org.powerbat.gui;
+package org.nauxiancc.gui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,9 +18,9 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-import org.powerbat.configuration.Global.Paths;
-import org.powerbat.executor.Executor;
-import org.powerbat.projects.Project;
+import org.nauxiancc.configuration.Global.Paths;
+import org.nauxiancc.executor.Executor;
+import org.nauxiancc.projects.Project;
 
 /**
  * The main panel for editing the runner's code, displaying instructions and

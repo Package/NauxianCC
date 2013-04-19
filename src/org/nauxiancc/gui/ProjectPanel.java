@@ -1,4 +1,4 @@
-package org.powerbat.gui;
+package org.nauxiancc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,8 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-import org.powerbat.configuration.Global;
-import org.powerbat.projects.Project;
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.projects.Project;
 
 /**
  * This class is used for the construction of the

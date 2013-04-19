@@ -1,4 +1,4 @@
-package org.powerbat.gui;
+package org.nauxiancc.gui;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -7,8 +7,8 @@ import java.util.Comparator;
 
 import javax.swing.*;
 
-import org.powerbat.projects.Project;
-import org.powerbat.projects.ProjectData;
+import org.nauxiancc.projects.Project;
+import org.nauxiancc.projects.ProjectData;
 
 /**
  * The selector is used to display the list of available projects and allow the

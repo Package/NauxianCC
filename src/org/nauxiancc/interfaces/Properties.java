@@ -1,4 +1,4 @@
-package org.powerbat.interfaces;
+package org.nauxiancc.interfaces;
 
 import java.util.HashMap;
 

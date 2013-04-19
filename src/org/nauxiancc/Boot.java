@@ -1,13 +1,13 @@
-package org.powerbat;
+package org.nauxiancc;
 
 import javax.swing.*;
 
-import org.powerbat.configuration.Global;
-import org.powerbat.configuration.Global.Paths;
-import org.powerbat.executor.Executor;
-import org.powerbat.gui.GUI;
-import org.powerbat.gui.Splash;
-import org.powerbat.methods.Updater;
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.configuration.Global.Paths;
+import org.nauxiancc.executor.Executor;
+import org.nauxiancc.gui.GUI;
+import org.nauxiancc.gui.Splash;
+import org.nauxiancc.methods.Updater;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +17,7 @@ import java.net.URI;
 
 /**
  * The boot class is responsible for basic loading for the client. Bringing all
- * the classes into unison, it effectively creates what is known as Powerbat.
+ * the classes into unison, it effectively creates what is known as NauxianCC.
  * Advanced technology to help you learn Java and fulfill what I like to know as
  * 'Good standing'. Helping others for free. Give what you can and take what you
  * must. From everything to the CustomClassLoader class to the Project class,
@@ -44,7 +44,7 @@ public class Boot {
     public static void main(String[] args) {
         if (!Executor.hasJDKInstalled()) {
             final int option = JOptionPane.showConfirmDialog(null,
-                    "<html>You need to have JDK installed to run Powerbat.<br>Click 'Ok' if you would like to go to the JDK site.</html>", "JDK Required",
+                    "<html>You need to have JDK installed to run NauxianCC.<br>Click 'Ok' if you would like to go to the JDK site.</html>", "JDK Required",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
                 final Desktop desktop = Desktop.getDesktop();

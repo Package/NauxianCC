@@ -1,2 +1,2 @@
-Powerbat
-========
+Nauxian Computing Challenges
+============================

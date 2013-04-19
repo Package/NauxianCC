@@ -1,4 +1,4 @@
-package org.powerbat.gui;
+package org.nauxiancc.gui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,9 +7,9 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-import org.powerbat.configuration.Global;
-import org.powerbat.methods.Updater;
-import org.powerbat.projects.Project;
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.methods.Updater;
+import org.nauxiancc.projects.Project;
 
 /**
  * Only for use in the boot and the setting and getting of Projects.
@@ -36,7 +36,7 @@ public class GUI {
      * @since 1.0
      */
     public GUI() {
-        final JFrame frame = new JFrame("Powerbat v" + Updater.clientVersion());
+        final JFrame frame = new JFrame("Nauxian Computing Challenges v" + Updater.clientVersion());
         final JPanel main = new JPanel(new BorderLayout());
         final JPanel content = new JPanel(new BorderLayout());
         final JPanel mainpane = new JPanel();
@@ -178,7 +178,6 @@ public class GUI {
         if (cur != null) {
             tabs.remove(cur);
             cur.removeAll();
-            //cur = null;
             System.gc();
             return;
         }

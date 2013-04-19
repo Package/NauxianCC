@@ -1,4 +1,4 @@
-package org.powerbat.methods;
+package org.nauxiancc.methods;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,6 +36,9 @@ public class XMLParser {
     }
 
     public void prepare(final File file) throws IOException, SAXException {
+        if(!file.exists()){
+            return;
+        }
         document = builder.parse(file);
         document.getDocumentElement().normalize();
     }
@@ -53,11 +56,10 @@ public class XMLParser {
                 final Element e = (Element) n;
                 addAll(map, e.getChildNodes());
                 if (!e.getAttribute("value").isEmpty()) {
-                    final String attrib = e.getAttribute("value").replace("&quot;", "\"");
                     if (map.containsKey(e.getTagName())) {
-                        map.put(e.getTagName(), map.get(e.getTagName()) + ", " + attrib);
+                        map.put(e.getTagName(), map.get(e.getTagName()) + ", " + e.getAttribute("value"));
                     } else {
-                        map.put(e.getTagName(), attrib);
+                        map.put(e.getTagName(), e.getAttribute("value"));
                     }
                 }
             }
