@@ -173,7 +173,7 @@ public class Splash extends JFrame implements WindowListener, MouseListener {
             g.setColor(COLOR);
             g.setFont(FONT);
             g.drawString(status, 10, 190);
-            g.drawString("Welcome to Powerbat " + name, 10, 15);
+            g.drawString("Welcome to Nauxian Computing Challenges " + name, 10, 15);
             g.drawString(tip, 10, 90);
         }
     }

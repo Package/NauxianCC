@@ -79,7 +79,7 @@ public class Global {
     public static class Paths {
 
         public static final String APP_DATA = getAppData();
-        public static final String HOME = APP_DATA + File.separator + "Powerbat";
+        public static final String HOME = APP_DATA + File.separator + "NauxianCC";
         public static final String SOURCE = HOME + File.separator + "src";
         public static final String SETTINGS = HOME + File.separator + "data";
         public static final String JAVA = SETTINGS + File.separator + "java";
@@ -112,7 +112,7 @@ public class Global {
     }
 
     /**
-     * The default URL's for all of Powerbat's necessities such as images,
+     * The default URL's for all of NauxianCC's necessities such as images,
      * version information and packaged Runners.
      *
      * @see {@link Updater#update()}
@@ -121,7 +121,7 @@ public class Global {
 
     public static class URLs {
 
-        public static final String BIN = "https://github.com/Naux/Powerbat/blob/master/runners/";
+        public static final String BIN = "https://github.com/Naux/NauxianCC/blob/master/runners/";
         public static final String RESOURCES = "/resources/";
         public static final String SPLASH = RESOURCES + "splash.png";
         public static final String ICON = RESOURCES + "icon.png";

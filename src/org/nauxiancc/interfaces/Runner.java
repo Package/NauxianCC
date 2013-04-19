@@ -1,7 +1,6 @@
 package org.nauxiancc.interfaces;
 
 import org.nauxiancc.executor.Result;
-import org.nauxiancc.projects.Project;
 
 /**
  * All Runners must extend this class. It will handle all manifest properties

@@ -1,9 +1,7 @@
 package org.nauxiancc.projects;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.nauxiancc.configuration.Global.Paths;
 
