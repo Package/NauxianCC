@@ -2,10 +2,8 @@ import java.lang.reflect.Method;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "AP", instructions = "Return true if a number is divisible by each containing digit.", version = 1.0d, className = "DividesSelf", level = 3, method = "boolean canDivide(int num)")
 public class DividesSelfRunner extends Runner {
 
 	@Override

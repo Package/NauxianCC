@@ -3,10 +3,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "Logic", instructions = "Return the array that has a larger sum out of the 2.\n{1, 3, 2}, {5, 3, 2} -> {5, 3, 2}\n{1, 5, 6}, {4, 8, 0} -> {1, 5, 6}", version = 1.0d, className = "LargeArray", level = 1, method = "int[] largerArray(int[] a, int[] b)")
 public class LargeArrayRunner extends Runner {
 
 	@Override

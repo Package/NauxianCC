@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<manifest>
+    <data>
+        <version value="1.0"/>
+        <author value="Naux"/>
+        <name value="GroupRecursion"/>
+        <description value="Return true if any combination of the numbers can reach the target.\nStart will always be 0 to begin with.\nRemember that this is recursive."/>
+        <category value="5"/>
+    </data>
+    <skeleton>
+        <return value="boolean"/>
+        <method value="group"/>
+        <parameters>
+            <parameter value="int start"/>
+            <parameter value="int target"/>
+            <parameter value="int[] nums"/>
+        </parameters>
+    </skeleton>
+</manifest>

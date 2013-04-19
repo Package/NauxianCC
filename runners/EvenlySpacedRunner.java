@@ -3,10 +3,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "Logic", instructions = "Given 3 ints, return true if the difference between small and medium is the same as the difference between medium and large.\nThough a problem does arise, which of a, b and c is the largest? The smallest?", version = 1.0, className = "EvenlySpaced", level = 3, method = "boolean spaced(int a, int b, int c)")
 public class EvenlySpacedRunner extends Runner {
 
 	@Override

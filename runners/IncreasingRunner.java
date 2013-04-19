@@ -3,10 +3,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "Logic", instructions = "Return true if the parameters a, b, c increase as you read them from left-to-right, or stay the same.\n{1, 2, 4} -> true\n{1, 2, 2} -> true\n{1, 4, 3} -> false", version = 1.0, className = "Increasing", level = 2, method = "boolean increasing(int[] nums)")
 public class IncreasingRunner extends Runner {
 
 	@Override

@@ -54,9 +54,9 @@ public class ProjectPanel extends JPanel implements Comparable<ProjectPanel> {
         final JPanel leftPane = new JPanel();
         final JPanel centerPane = new JPanel(new GridLayout(3, 1));
 
-        final JLabel difficulty = new JLabel(Project.DIFFICULTY[project.getLevel() - 1]);
+        final JLabel difficulty = new JLabel(Project.DIFFICULTY[project.getProperties().getCategory() - 1]);
         final JLabel name = new JLabel();
-        final JLabel category = new JLabel(project.getCategory());
+        final JLabel author = new JLabel(project.getProperties().getAuthor());
 
         final JButton open = new JButton("Open");
 
@@ -99,18 +99,18 @@ public class ProjectPanel extends JPanel implements Comparable<ProjectPanel> {
 
         difficulty.setPreferredSize(new Dimension(200, 30));
         difficulty.setFont(SANS_15);
-        difficulty.setForeground(Project.DIFFICULTY_COLOR[project.getLevel() - 1]);
+        difficulty.setForeground(Project.DIFFICULTY_COLOR[project.getProperties().getCategory() - 1]);
 
         name.setPreferredSize(new Dimension(200, 50));
         name.setFont(SANS_18);
-        name.setForeground(Project.DIFFICULTY_COLOR[project.getLevel() - 1]);
+        name.setForeground(Project.DIFFICULTY_COLOR[project.getProperties().getCategory() - 1]);
 
-        category.setPreferredSize(new Dimension(200, 30));
-        category.setFont(SANS_15);
-        category.setForeground(Project.DIFFICULTY_COLOR[project.getLevel() - 1]);
+        author.setPreferredSize(new Dimension(200, 30));
+        author.setFont(SANS_15);
+        author.setForeground(Project.DIFFICULTY_COLOR[project.getProperties().getCategory() - 1]);
 
         centerPane.add(name);
-        centerPane.add(category);
+        centerPane.add(author);
         centerPane.add(difficulty);
 
         add(leftPane, BorderLayout.WEST);

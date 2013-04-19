@@ -90,7 +90,7 @@ public class GUI {
             return;
         }
         final JavaEditor temp = new JavaEditor(project);
-        temp.setInstructionsText(project.getInstructions());
+        temp.setInstructionsText(project.getProperties().getDescription());
         if (tabByName(project.getName()) == null) {
             final Image image = Global.getImage(Global.CLOSE_IMAGE);
             final ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
@@ -169,7 +169,6 @@ public class GUI {
     /**
      * Removes the tab from the tabbed pane. Loads the tab by name.
      *
-     * @param name Always represented through {@link org.powerbat.interfaces.Runner#getClassName()}
      * @see GUI#tabByName(String)
      * @since 1.0
      */

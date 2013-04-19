@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<manifest>
+    <data>
+        <version value="1.0"/>
+        <author value="Naux"/>
+        <name value="CanReach"/>
+        <description value="Given parameters boolean lowGas and boolean lowOil, using the getWarning method return the following: \n0 if you have no issues\n1 if you have lowOil\n2 if you have lowGas, and 3 if you have both."/>
+        <category value="1"/>
+    </data>
+    <skeleton>
+        <return value="int"/>
+        <method value="getWarning"/>
+        <parameters>
+            <parameter value="boolean lowOil"/>
+            <parameter value="boolean lowGas"/>
+        </parameters>
+    </skeleton>
+</manifest>

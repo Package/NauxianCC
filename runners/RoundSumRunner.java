@@ -3,14 +3,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "Logic", instructions = "Round each number to the nearest number divisible by 10.\nThen, return the sum of all the rounded numbers.\n5 rounds to 10\n14 rounds to 10\n23 rounds to 20.", version = 1.0D, className = "RoundSum", level = 3, method = "int roundSum(int[] nums)")
 public class RoundSumRunner extends Runner {
-
-	Manifest manifest = this.getClass().getAnnotation(Manifest.class);
-
 	@Override
 	public Result[] getResults(Class<?> clazz) {
 		try {
@@ -23,9 +18,7 @@ public class RoundSumRunner extends Runner {
 				for (int i = 0; i < nums.length; i++) {
 					nums[i] = ran.nextInt(100);
 				}
-				results[j] = new Result(
-						method.invoke(clazz.newInstance(), nums),
-						roundSum(nums), Arrays.toString(nums));
+				results[j] = new Result(method.invoke(clazz.newInstance(), nums), roundSum(nums), Arrays.toString(nums));
 			}
 			return results;
 		} catch (Exception e) {

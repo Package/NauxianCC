@@ -1,12 +1,10 @@
 package org.powerbat.methods;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -16,7 +14,6 @@ import org.powerbat.configuration.Global;
 import org.powerbat.configuration.Global.Paths;
 import org.powerbat.configuration.Global.URLs;
 import org.powerbat.gui.Splash;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.projects.Project;
 import org.powerbat.projects.ProjectData;
 
@@ -99,7 +96,7 @@ public class Updater {
             final ArrayList<Project> data = ProjectData.DATA;
             final String runner = "Runner";
             for (final Project p : data) {
-                currentRunnersList.put(p.getName() + runner, p.getVersion());
+                currentRunnersList.put(p.getName() + runner, p.getProperties().getVersion());
             }
             for (final String key : updatedRunnersList.keySet()) {
                 if (!currentRunnersList.containsKey(key)) {
@@ -130,10 +127,17 @@ public class Updater {
 
     private static void download(String runnerName, String src) {
         try {
-            Splash.setStatus("Downloading " + runnerName);
+            Splash.setStatus("Downloading " + runnerName + ".class");
+
             final byte[] data = IOUtils.download(new URL(src + runnerName + ".class" + (src.contains("github.com") ? "?raw=true" : "")));
             final File out = new File(Global.Paths.SOURCE, runnerName + ".class");
             IOUtils.write(out, data);
+
+            Splash.setStatus("Downloading " + runnerName + ".xml");
+            final byte[] xdata = IOUtils.download(new URL(src + runnerName + ".xml" + (src.contains("github.com") ? "?raw=true" : "")));
+            final File xout = new File(Global.Paths.SOURCE, runnerName + ".xml");
+            IOUtils.write(xout, xdata);
+
         } catch (IOException e) {
             System.err.println("Unable to download " + runnerName);
             e.printStackTrace();

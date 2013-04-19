@@ -2,10 +2,8 @@ import java.lang.reflect.Method;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "AP", instructions = "Return the nth prime number in method getPrim(int n).\n1-1000 inclusive\nAssume 2 is the first prime number.", version = 1.0, className = "PrimeNumber", level = 5, method = "int getPrime(int n)")
 public class PrimeNumberRunner extends Runner {
 
 	@Override

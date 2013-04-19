@@ -216,7 +216,7 @@ public class JavaEditor extends JPanel implements KeyListener, ActionListener, F
 
     @Override
     public void focusGained(FocusEvent e) {
-        setInstructionsText(project.getInstructions());
+        setInstructionsText(project.getProperties().getDescription());
     }
 
     @Override

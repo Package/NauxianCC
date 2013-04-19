@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<manifest>
+    <data>
+        <version value="1.0"/>
+        <author value="Naux"/>
+        <name value="AddMinus"/>
+        <description value="Do a sweep through the list of numbers.\nFor each number, if it is even, add it to the sum;\nif it is odd minus it from the sum. Return the sum when this is complete."/>
+        <category value="2"/>
+    </data>
+    <skeleton>
+        <return value="int"/>
+        <method value="addMinus"/>
+        <parameters>
+            <parameter value="int[] nums"/>
+        </parameters>
+    </skeleton>
+</manifest>

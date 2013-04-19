@@ -2,10 +2,8 @@ import java.lang.reflect.Method;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "String", instructions = "Return the sum of all the numbers contained in the string.\n\"Aj7b7s6\" -> 20", version = 1.0d, className = "ParseSum", level = 2, method = "int getSum(String str)")
 public class ParseSumRunner extends Runner {
 
 	private static final char[] CHARS = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',

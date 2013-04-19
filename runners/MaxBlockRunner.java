@@ -2,10 +2,8 @@ import java.lang.reflect.Method;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "String", instructions = "Return the length of the largest block of repetitive characters in a String", version = 1.0d, className = "MaxBlock", level = 3, method = "int maxBlock(String str)")
 public class MaxBlockRunner extends Runner {
 
 	private static final char[] CHARS = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -28,21 +26,17 @@ public class MaxBlockRunner extends Runner {
 						string += c;
 					}
 				}
-				results[i] = new Result(method.invoke(clazz.newInstance(),
-						string), maxBlock(string), string);
+				results[i] = new Result(method.invoke(clazz.newInstance(), string), maxBlock(string), string);
 
 			}
 			return results;
 		} catch (Exception e) {
-
+            return new Result[]{};
 		}
-		return new Result[]{};
 	}
 
 	private int maxBlock(String str) {
 		int i;
-		return str.isEmpty() ? 0 : Math.max(
-				i = str.replaceAll("(.)(\\1*).*", "$1$2").length(),
-				maxBlock(str.substring(i)));
+		return str.isEmpty() ? 0 : Math.max(i = str.replaceAll("(.)(\\1*).*", "$1$2").length(), maxBlock(str.substring(i)));
 	}
 }

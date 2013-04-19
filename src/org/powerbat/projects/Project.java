@@ -9,9 +9,11 @@ import java.io.IOException;
 import org.powerbat.configuration.Global.Paths;
 import org.powerbat.gui.ProjectPanel;
 import org.powerbat.gui.ProjectSelector;
-import org.powerbat.interfaces.Manifest;
+import org.powerbat.interfaces.Properties;
 import org.powerbat.methods.CustomClassLoader;
 import org.powerbat.methods.IOUtils;
+import org.powerbat.methods.XMLParser;
+import org.xml.sax.SAXException;
 
 /**
  * Used for handling project attributes and other data
@@ -33,13 +35,8 @@ public class Project {
 
     private final String name;
     private final File file;
-    private final String instructions;
-    private final String category;
-    private final String className;
-    private final String method;
+    private final Properties properties;
     private final Class<?> runner;
-    private final double version;
-    private final int level;
     private boolean complete;
 
     /**
@@ -49,7 +46,7 @@ public class Project {
      * @param runnerFile The file to read data from
      */
 
-    public Project(final String name, final File runnerFile) {
+    public Project(final String name, final File runnerFile) throws IOException, SAXException {
         try {
             final BufferedReader br = new BufferedReader(new FileReader(new File(Paths.SETTINGS + File.separator + "data.dat")));
             boolean b;
@@ -67,13 +64,11 @@ public class Project {
         }
         file = new File(Paths.JAVA + File.separator + name + ".java");
         runner = CustomClassLoader.loadClassFromFile(runnerFile);
-        final Manifest manifest = runner.getAnnotation(Manifest.class);
-        instructions = manifest.instructions();
-        category = manifest.category();
-        version = manifest.version();
-        className = manifest.className();
-        method = manifest.method();
-        level = Math.min(5, Math.max(1, manifest.level()));
+        final XMLParser parser = XMLParser.getInstance();
+        final File xml = new File(Paths.SOURCE, name + ".xml");
+        parser.prepare(xml);
+        this.properties = new Properties(parser.getAttributeMapping());
+        parser.release();
         this.name = name;
     }
 
@@ -94,9 +89,13 @@ public class Project {
      */
 
     public String getSortName() {
-        return level + getName();
+        return properties.getCategory() + getName();
     }
 
+
+    public Properties getProperties(){
+        return properties;
+    }
 
     /**
      * @see org.powerbat.projects.Project#getName()
@@ -107,15 +106,6 @@ public class Project {
         return getName();
     }
 
-    /**
-     * Returns the difficulty level as an <tt>int</tt> from 1-5.
-     *
-     * @return difficulty level of the project
-     */
-
-    public int getLevel() {
-        return level;
-    }
 
     /**
      * This is used only during loading to get the saved code if any
@@ -132,18 +122,9 @@ public class Project {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getSkeleton();
+        return properties.getSkeleton();
     }
 
-    /**
-     * This method is used primarily in the GUI. It is used only once or twice during runtime per runner.
-     *
-     * @return the instructions to be displayed regarding the problem.
-     */
-
-    public String getInstructions() {
-        return instructions;
-    }
 
     /**
      * Returns the file of the runner. This is used nicely to read data
@@ -153,26 +134,6 @@ public class Project {
 
     public File getFile() {
         return file;
-    }
-
-    /**
-     * Useful for checking version information and updating.
-     *
-     * @return version of the Runner
-     */
-
-    public double getVersion() {
-        return version;
-    }
-
-    /**
-     * Used in displaying the Runner and sorting by difficulty
-     *
-     * @return The category as a <tt>String</tt>
-     */
-
-    public String getCategory() {
-        return category;
     }
 
     /**
@@ -192,7 +153,7 @@ public class Project {
      */
 
     public int hashCode() {
-        return name.hashCode() * 31 + file.hashCode() * 17 - instructions.hashCode() * 3;
+        return name.hashCode() * 31 + file.hashCode() * 17;
     }
 
     /**
@@ -245,14 +206,5 @@ public class Project {
         }
     }
 
-    /**
-     * Used when code can't be loaded or the project is restarted
-     *
-     * @return <tt>String</tt> of the basic skeleton as read from the manifest
-     */
-
-    public String getSkeleton() {
-        return "public class " + className + " {\n\t\n\tpublic " + method + "{\n\t\n\t}\n\n}";
-    }
 
 }

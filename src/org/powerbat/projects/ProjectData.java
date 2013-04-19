@@ -19,12 +19,6 @@ public class ProjectData {
 
     public static ArrayList<Project> DATA;
 
-    private static final FileFilter CLASS_FILES = new FileFilter() {
-        public boolean accept(File file) {
-            return file.getName().toLowerCase().endsWith(".class");
-        }
-    };
-
     private ProjectData() {
     }
 
@@ -50,8 +44,12 @@ public class ProjectData {
             if (idx == -1) {
                 continue;
             }
-            final Project p = new Project(name.substring(0, idx), file);
-            DATA.add(p);
+            try {
+                final Project p = new Project(name.substring(0, idx), file);
+                DATA.add(p);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

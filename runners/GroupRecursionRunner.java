@@ -3,10 +3,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 import org.powerbat.executor.Result;
-import org.powerbat.interfaces.Manifest;
 import org.powerbat.interfaces.Runner;
 
-@Manifest(category = "Recursive", instructions = "Return true if any combination of the numbers can reach the target.\nStart will always be 0 to begin with.\nRemember that this is recursive.", version = 1.0d, className = "GroupRecursion", level = 5, method = "boolean group(int start, int target, int[] nums)")
 public class GroupRecursionRunner extends Runner {
 
 	@Override
@@ -22,9 +20,7 @@ public class GroupRecursionRunner extends Runner {
 					nums[j] = random.nextInt(13);
 				}
 				final int target = 3 + random.nextInt(22);
-				results[i] = new Result(method.invoke(clazz.newInstance(), 0,
-						target, nums), groupSum(0, target, nums), "0, "
-						+ target + ", " + Arrays.toString(nums));
+				results[i] = new Result(method.invoke(clazz.newInstance(), 0, target, nums), groupSum(0, target, nums), "0, " + target + ", " + Arrays.toString(nums));
 
 			}
 			return results;
@@ -36,8 +32,6 @@ public class GroupRecursionRunner extends Runner {
 	private boolean groupSum(int start, int target, int[] nums) {
 		if (start == nums.length)
 			return target == 0;
-		if (groupSum(start + 1, target - nums[start], nums))
-			return true;
-		return groupSum(start + 1, target, nums);
+		return (groupSum(start + 1, target - nums[start], nums)) || groupSum(start + 1, target, nums);
 	}
 }
