@@ -1,4 +1,4 @@
-Powerbat - Program to help teach users Java. Copyright (C) 2013 Naux
+Nauxian Computing Challenges - Program to help teach users Java. Copyright (C) 2013 Naux
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
