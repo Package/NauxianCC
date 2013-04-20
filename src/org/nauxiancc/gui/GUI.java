@@ -139,8 +139,4 @@ public class GUI {
         System.err.println("Failed to close tab " + name);
     }
 
-    public static JTabbedPane getTabs(){
-        return tabs;
-    }
-
 }
