@@ -13,10 +13,10 @@ public class CanReachRunner extends Runner {
 			final Random ran = new Random();
 			final Result[] results = new Result[10];
 			for (int i = 0; i < 10; i++) {
-				final int small = ran.nextInt(15) + 5;
-				final int large = ran.nextInt(5) + 5;
-				final int goal = (small + large * 5) + 2 + ran.nextInt(6);
-				results[i] = new Result(method.invoke(clazz.newInstance(), small, large, goal), (goal > small + large * 5) && goal % 5 <= small, small, large, goal);
+				final int small = ran.nextInt(5) + 5;
+				final int large = ran.nextInt(5);
+				final int goal = (small + large * 5) + 5 + ran.nextInt(6);
+				results[i] = new Result(method.invoke(clazz.newInstance(), small, large, goal), (goal > small + large * 5) ? false : goal % 5 <= small, small, large, goal);
 			}
 			return results;
 		} catch (Exception e) {
