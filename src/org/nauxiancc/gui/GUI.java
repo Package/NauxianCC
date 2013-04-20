@@ -89,57 +89,12 @@ public class GUI {
         if (project == null) {
             return;
         }
-        final JavaEditor temp = new JavaEditor(project);
-        temp.setInstructionsText(project.getProperties().getDescription());
+        final JavaEditor editor = new JavaEditor(project);
+        editor.setInstructionsText(project.getProperties().getDescription());
         if (tabByName(project.getName()) == null) {
-            final Image image = Global.getImage(Global.CLOSE_IMAGE);
-            final ImageIcon icon = new ImageIcon(image.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-            final JLabel close = new JLabel(icon, SwingConstants.CENTER);
-            final JLabel label = new JLabel(project.getName());
-            final JPanel pane = new JPanel(new BorderLayout());
-            final JPanel main = new JPanel(new BorderLayout());
 
-            pane.setName(project.getName());
-            pane.setPreferredSize(new Dimension(140, 50));
-            pane.setOpaque(false);
-            pane.add(label, BorderLayout.CENTER);
-
-            tabs.add(temp, tabs.getTabCount());
-            tabs.setTabComponentAt(tabs.getTabCount() - 1, main);
-
-            main.add(close, BorderLayout.EAST);
-            main.add(pane, BorderLayout.CENTER);
-            main.setOpaque(false);
-            main.setPreferredSize(TAB_SIZE);
-
-            label.setLocation(pane.getWidth() - label.getWidth(), pane.getY());
-
-            close.setBorder(PRESET);
-            close.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    close.setBorder(PRESS);
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                    close.setBorder(PRESET);
-                    removeTab(project.getName());
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                }
-            });
+            tabs.add(editor, tabs.getTabCount());
+            tabs.setTabComponentAt(tabs.getTabCount() - 1, new TabPane(project));
 
         }
         tabs.setSelectedComponent(tabByName(project.getName()));
@@ -182,6 +137,10 @@ public class GUI {
             return;
         }
         System.err.println("Failed to close tab " + name);
+    }
+
+    public static JTabbedPane getTabs(){
+        return tabs;
     }
 
 }
