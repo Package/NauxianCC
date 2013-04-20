@@ -15,7 +15,9 @@ public class IncreasingRunner extends Runner {
 			Result[] results = new Result[10];
 			for (int i = 0; i < 10; i++) {
 				int a = ran.nextInt(7), b = ran.nextInt(14), c = ran.nextInt(21);
-				results[i] = new Result(method.invoke(clazz.newInstance(), a, b, c ), increasing(new int[] { a, b, c }),
+				results[i] = new Result(
+                        method.invoke(clazz.newInstance(), new int[]{a, b, c}),
+                        increasing(new int[] { a, b, c }),
 						Arrays.toString(new int[] { a, b, c }));
 			}
 			return results;
