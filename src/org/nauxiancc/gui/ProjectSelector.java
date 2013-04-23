@@ -21,8 +21,9 @@ import org.nauxiancc.projects.ProjectData;
 public class ProjectSelector extends JPanel {
 
     private static final long serialVersionUID = 4869219241938861949L;
-
     private static final ArrayList<ProjectPanel> PROJECTS = new ArrayList<>();
+    private static final String TOOL_TIP = " information. Press 'Open' to start it.";
+    private final JPanel selector;
 
     /**
      * Constructs a new project selector. Only to be used inside of the
@@ -33,12 +34,11 @@ public class ProjectSelector extends JPanel {
 
     public ProjectSelector() {
         super(new BorderLayout());
-        final String toolTip = " information. Press 'Open' to start it.";
-        final JPanel selector = new JPanel(new SelectorLayout(FlowLayout.LEADING, 5, 5));
+        selector = new JPanel(new SelectorLayout(FlowLayout.LEADING, 5, 5));
         for (final Project project : ProjectData.DATA) {
             final ProjectPanel temp = new ProjectPanel(project);
             PROJECTS.add(temp);
-            temp.setToolTipText(project.getName().concat(toolTip));
+            temp.setToolTipText(project.getName().concat(TOOL_TIP));
         }
         Collections.sort(PROJECTS, new Comparator<ProjectPanel>() {
 
@@ -48,10 +48,41 @@ public class ProjectSelector extends JPanel {
             }
 
         });
-        for(final ProjectPanel panel : PROJECTS){
+        for (final ProjectPanel panel : PROJECTS) {
             selector.add(panel);
         }
         add(new JScrollPane(selector), BorderLayout.CENTER);
+    }
+
+    public void refine(final String key, boolean complete, boolean name, boolean incomplete) {
+        for (final ProjectPanel p : PROJECTS) {
+            if (name && p.getProject().getName().toLowerCase().contains(key.toLowerCase()) || key.isEmpty()) {
+                if (complete && p.getProject().isComplete() || incomplete && !p.getProject().isComplete()) {
+                    if (!containsPanel(p)) {
+                        selector.add(p);
+                        revalidate();
+                        updateUI();
+                    }
+                    continue;
+                }
+            }
+            if (containsPanel(p)) {
+                selector.remove(p);
+                revalidate();
+                updateUI();
+            }
+        }
+    }
+
+    private boolean containsPanel(final ProjectPanel panel) {
+        for (final Component c : selector.getComponents()) {
+            if (c instanceof ProjectPanel) {
+                if (((ProjectPanel) c).getProject().equals(panel.getProject())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

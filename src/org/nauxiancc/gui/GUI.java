@@ -1,11 +1,8 @@
 package org.nauxiancc.gui;
 
 import java.awt.*;
-import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 
 import org.nauxiancc.configuration.Global;
 import org.nauxiancc.methods.Updater;
@@ -22,9 +19,7 @@ import org.nauxiancc.projects.Project;
 public class GUI {
 
     private static JTabbedPane tabs;
-
-    private static final Border PRESET = new BevelBorder(BevelBorder.RAISED);
-    private static final Border PRESS = new BevelBorder(BevelBorder.LOWERED);
+    private static ProjectSelector selector;
 
     private static final Dimension TAB_SIZE = new Dimension(170, 30);
 
@@ -40,10 +35,11 @@ public class GUI {
         final JPanel main = new JPanel(new BorderLayout());
         final JPanel content = new JPanel(new BorderLayout());
         final JPanel mainpane = new JPanel();
-        final ProjectSelector selector = new ProjectSelector();
         final JPanel homeFill = new JPanel();
         final JLabel home = new JLabel("Home", JLabel.CENTER);
+        final SearchPanel search  = new SearchPanel();
 
+        selector = new ProjectSelector();
         tabs = new JTabbedPane();
 
         frame.setContentPane(main);
@@ -58,6 +54,7 @@ public class GUI {
             Splash.setStatus("Downloading icon failed");
         }
 
+        content.add(search, BorderLayout.NORTH);
         content.add(selector, BorderLayout.CENTER);
 
         mainpane.setOpaque(false);
@@ -137,6 +134,10 @@ public class GUI {
             return;
         }
         System.err.println("Failed to close tab " + name);
+    }
+
+    public static ProjectSelector getSelector(){
+        return selector;
     }
 
 }
