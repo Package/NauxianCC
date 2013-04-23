@@ -143,7 +143,7 @@ public class JavaEditor extends JPanel implements KeyListener, ActionListener, F
      */
 
     private void highlightKeywords() {
-        final String line = textPane.getText().replaceAll("[([)];\n\t]", " ");
+        final String line = textPane.getText().replaceAll("[(\\[);\n\t]", " ");
         int i = 0;
         for (final String word : line.split(" ")) {
             final boolean keyword = Arrays.binarySearch(KEYWORDS, word) >= 0;
