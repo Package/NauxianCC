@@ -136,6 +136,12 @@ public class GUI {
         System.err.println("Failed to close tab " + name);
     }
 
+    /**
+     * Returns the ProjectSelector instance
+     *
+     * @return  <tt>ProjectSelector</tt> instance created upon GUI initialization
+     */
+
     public static ProjectSelector getSelector(){
         return selector;
     }

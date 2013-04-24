@@ -54,36 +54,32 @@ public class ProjectSelector extends JPanel {
         add(new JScrollPane(selector), BorderLayout.CENTER);
     }
 
+    /**
+     *
+     * Filters out <tt>ProjectPanels</tt> by a search key or based
+     * conditions. This method clears the panel, then re-adds components
+     * that meet the required conditions if any.
+     *
+     * @param key           The key to search for in name
+     * @param complete      Whether or not to include complete projects
+     * @param name          Whether or not to search by name. This uses
+     *                      the <tt>key</tt> for reference
+     * @param incomplete    Whether or not to include incomplete projects
+     */
+
     public void refine(final String key, boolean complete, boolean name, boolean incomplete) {
+        selector.removeAll();
+        revalidate();
         for (final ProjectPanel p : PROJECTS) {
             if (name && p.getProject().getName().toLowerCase().contains(key.toLowerCase()) || key.isEmpty()) {
                 if (complete && p.getProject().isComplete() || incomplete && !p.getProject().isComplete()) {
-                    if (!containsPanel(p)) {
-                        selector.add(p);
-                        revalidate();
-                        updateUI();
-                    }
-                    continue;
+                    selector.add(p);
                 }
             }
-            if (containsPanel(p)) {
-                selector.remove(p);
-                revalidate();
-                updateUI();
-            }
         }
+        revalidate();
     }
 
-    private boolean containsPanel(final ProjectPanel panel) {
-        for (final Component c : selector.getComponents()) {
-            if (c instanceof ProjectPanel) {
-                if (((ProjectPanel) c).getProject().equals(panel.getProject())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * Gets the list of all added projects to the selector pane.

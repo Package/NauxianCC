@@ -4,6 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Used to refine the project panels based off the user's
+ * discretion and what they want to do.
+ *
+ * @author Naux
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class SearchPanel extends JPanel {
 
     private static final String DEFAULT = "Search...";
@@ -13,10 +22,17 @@ public class SearchPanel extends JPanel {
     private final JCheckBox name;
     private final JCheckBox incomplete;
 
+    /**
+     * Constructs a new search panel. This ideally
+     * should only be done once.
+     *
+     * @since 1.0
+     */
+
     public SearchPanel() {
         super(new BorderLayout());
-        final JPanel options = new JPanel(new FlowLayout());
-        final JPanel padding = new JPanel(new FlowLayout());
+        final JPanel options = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        final JPanel padding = new JPanel(new FlowLayout(FlowLayout.LEADING));
         final JTextField search = new JTextField();
         final ItemListener listener = new ItemListener() {
             @Override
@@ -78,7 +94,7 @@ public class SearchPanel extends JPanel {
         });
         search.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyReleased(KeyEvent e) {
                 search(search.getText());
             }
         });
@@ -86,9 +102,16 @@ public class SearchPanel extends JPanel {
         add(options, BorderLayout.SOUTH);
     }
 
+    /**
+     * Standardizes the search key and passes conditions into
+     * the refining process for the panels.
+     *
+     * @since 1.0
+     * @param key       The key to search for. Defaults to empty.
+     */
+
     public synchronized void search(final String key) {
         GUI.getSelector().refine(name.isSelected() ? key.replace(" ", "").replace(DEFAULT, "") : "", complete.isSelected(), name.isSelected(), incomplete.isSelected());
-        GUI.getSelector().revalidate();
     }
 
 }
