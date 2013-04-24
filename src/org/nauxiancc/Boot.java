@@ -12,6 +12,8 @@ import org.nauxiancc.methods.Updater;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 
@@ -42,6 +44,22 @@ public class Boot {
      */
 
     public static void main(String[] args) {
+        Paths.build();
+        Global.loadImages();
+        final String path = Paths.SETTINGS + File.separator + "tmp";
+        final File instance = new File(path);
+        if (instance.exists()) {
+            JOptionPane.showMessageDialog(null, "Another Instance of Nauxian Computing Challenges is already running");
+            System.exit(0);
+        }
+        try {
+            instance.createNewFile();
+            instance.deleteOnExit();
+            Runtime.getRuntime().exec("attrib +H " + path);
+        } catch (final IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
         if (!Executor.hasJDKInstalled()) {
             final int option = JOptionPane.showConfirmDialog(null,
                     "<html>You need to have JDK installed to run NauxianCC.<br>Click 'Ok' if you would like to go to the JDK site.</html>", "JDK Required",
@@ -59,10 +77,8 @@ public class Boot {
             System.exit(0);
             return;
         }
-        Paths.build();
-        Global.loadImages();
-        Splash.setStatus("Loading");
         final Splash splash = new Splash();
+        Splash.setStatus("Loading");
         final Timer repaint = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,7 +92,7 @@ public class Boot {
                     repaint.start();
                 }
             });
-        } catch (InterruptedException | InvocationTargetException e) {
+        } catch (final InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -90,7 +106,6 @@ public class Boot {
                     new GUI();
                     splash.shouldDispose(true);
                     splash.dispose();
-                    Splash.setStatus(null);
                     repaint.stop();
                 } catch (Exception e) {
                     e.printStackTrace();
