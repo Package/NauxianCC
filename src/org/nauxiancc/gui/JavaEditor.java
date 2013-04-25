@@ -7,11 +7,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -20,6 +16,7 @@ import javax.swing.text.StyleConstants;
 
 import org.nauxiancc.configuration.Global.Paths;
 import org.nauxiancc.executor.Executor;
+import org.nauxiancc.methods.IOUtils;
 import org.nauxiancc.projects.Project;
 
 /**
@@ -30,14 +27,13 @@ import org.nauxiancc.projects.Project;
  * @since 1.0
  */
 
-public class JavaEditor extends JPanel implements KeyListener, ActionListener, FocusListener {
+public class JavaEditor extends JPanel {
 
     private static final long serialVersionUID = 4203077483497169333L;
-    private final JTextPane textPane;
+    private final JTextPane codePane;
     private final ResultsTable resultsTable;
     private final JTextArea instructions;
     private final Project project;
-    private final JButton clear;
     private static final SimpleAttributeSet KEYWORD_SET = new SimpleAttributeSet();
     private static final SimpleAttributeSet NORMAL_SET = new SimpleAttributeSet();
 
@@ -46,6 +42,7 @@ public class JavaEditor extends JPanel implements KeyListener, ActionListener, F
         StyleConstants.setForeground(NORMAL_SET, new Color(0x000000));
     }
 
+    private static final String WORD_SPLIT = "[(\\[);\\n\\t\\u0020]";
     private static final String[] KEYWORDS = {"abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const",
             "continue", "default", "do", "double", "else", "enum", "extends", "false", "final", "finally", "float", "for", "goto", "if",
             "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "null", "package", "private", "protected", "public",
@@ -59,54 +56,89 @@ public class JavaEditor extends JPanel implements KeyListener, ActionListener, F
      * @param project The project to base this runner off of.
      */
 
-    public JavaEditor(Project project) {
+    public JavaEditor(final Project project) {
         super(new BorderLayout());
 
         this.project = project;
 
         instructions = new JTextArea();
-        textPane = new JTextPane();
-        final JButton button = new JButton("Run");
-        button.setHorizontalTextPosition(SwingConstants.CENTER);
-
-        button.setPreferredSize(new Dimension(200, button.getPreferredSize().height));
-        button.setToolTipText("Runs the project. (Ctrl+R)");
-
-        clear = new JButton("Clear Project");
+        codePane = new JTextPane();
         resultsTable = new ResultsTable(project);
-
-        final JPanel leftSide = new JPanel(new BorderLayout());
+        final JButton run = new JButton("Run");
+        final JButton clear = new JButton("Clear Project");
+        final JPanel rightSide = new JPanel(new BorderLayout());
         final JPanel buttons = new JPanel();
-        final JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, resultsTable, leftSide);
+        final JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, resultsTable, rightSide);
         final JSplitPane textSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(instructions), split);
 
-        textPane.setContentType("java");
-        textPane.setFont(new Font("Consolas", Font.PLAIN, 12));
-        textPane.addKeyListener(this);
-        textPane.addFocusListener(this);
+        run.setHorizontalTextPosition(SwingConstants.CENTER);
+        run.setPreferredSize(new Dimension(200, run.getPreferredSize().height));
+        run.setToolTipText("Runs the project. (Ctrl+R)");
+        run.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveAndRun();
+            }
+        });
 
-        button.addActionListener(this);
+        codePane.setContentType("java");
+        codePane.setFont(new Font("Consolas", Font.PLAIN, 12));
+        codePane.requestFocus();
+        codePane.setText(project.getCurrentCode());
+        codePane.addKeyListener(new KeyListener() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                highlightKeywords();
+            }
 
-        clear.addActionListener(this);
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_R && e.isControlDown()) {
+                    saveAndRun();
+                }
+            }
+        });
+        codePane.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                setInstructionsText(project.getProperties().getDescription());
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+            }
+        });
+
+
+        clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearSaveFiles();
+            }
+        });
 
         textSplit.setDividerLocation(100);
-        split.setDividerLocation(300);
-        buttons.add(clear);
-        buttons.add(button);
 
-        leftSide.add(new JScrollPane(textPane), BorderLayout.CENTER);
-        leftSide.add(buttons, BorderLayout.SOUTH);
+        split.setDividerLocation(300);
+
+        buttons.add(clear);
+        buttons.add(run);
+
+        rightSide.add(new JScrollPane(codePane), BorderLayout.CENTER);
+        rightSide.add(buttons, BorderLayout.SOUTH);
 
         instructions.setEditable(false);
-        instructions.setLineWrap(false);
         instructions.setFont(new Font("Consolas", Font.PLAIN, 12));
         instructions.setToolTipText("Instructions and any errors will appear here.");
 
-        textPane.requestFocus();
-        textPane.setText(project.getCurrentCode());
         add(textSplit, BorderLayout.CENTER);
-        highlightKeywords();
         setName(project.getName());
+
+        highlightKeywords();
     }
 
     /**
@@ -143,84 +175,46 @@ public class JavaEditor extends JPanel implements KeyListener, ActionListener, F
      */
 
     private void highlightKeywords() {
-        final String line = textPane.getText().replaceAll("[(\\[);\n\t]", " ");
         int i = 0;
-        for (final String word : line.split(" ")) {
+        for (final String word : codePane.getText().split(WORD_SPLIT)) {
             final boolean keyword = Arrays.binarySearch(KEYWORDS, word) >= 0;
-            textPane.getStyledDocument().setCharacterAttributes(i, word.length(), keyword ? KEYWORD_SET : NORMAL_SET, true);
+            codePane.getStyledDocument().setCharacterAttributes(i, word.length(), keyword ? KEYWORD_SET : NORMAL_SET, true);
             i += word.length() + 1;
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        highlightKeywords();
-    }
 
-    public void keyTyped(KeyEvent e) {
-    }
-
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_ALT) {
-            actionPerformed(null);
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e != null) {
-            if ((e.getSource() instanceof JButton)) {
-                if (e.getSource().equals(clear)) {
-                    final JFrame confirm = new JFrame();
-                    confirm.setLocationRelativeTo(getParent());
-                    final int n = JOptionPane.showConfirmDialog(confirm, "This will delete all progress on this project.\nDo you wish to continue?",
-                            "Continue?", JOptionPane.YES_NO_OPTION);
-                    if (n == JOptionPane.YES_OPTION) {
-                        if (!project.getFile().exists()) {
-                            JOptionPane.showMessageDialog(null, "Error deleting current code!");
-                        }
-                        final File classF = new File(project.getFile().getAbsolutePath().replace(".java", ".class"));
-                        project.getFile().delete();
-                        classF.delete();
-                        final File f = new File(Paths.SETTINGS + File.separator + "data.dat");
-                        try {
-                            final BufferedReader br = new BufferedReader(new FileReader(f));
-                            final String temp = br.readLine();
-                            if (temp != null) {
-                                final PrintWriter os = new PrintWriter(new FileWriter(f));
-                                os.print(temp.replace("|" + project.getName() + "|", ""));
-                                os.flush();
-                                os.close();
-                            }
-                            br.close();
-                            project.setComplete(false);
-                            textPane.setText(project.getCurrentCode());
-                            highlightKeywords();
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
-                    }
+    public void clearSaveFiles() {
+        final int n = JOptionPane.showConfirmDialog(null, "This will delete all progress on this project.\nDo you wish to continue?", "Continue?", JOptionPane.YES_NO_OPTION);
+        if (n == JOptionPane.YES_OPTION) {
+            if (project.getFile().exists()) {
+                final File classF = new File(project.getFile().getAbsolutePath().replace(".java", ".class"));
+                final File data = new File(Paths.SETTINGS + File.separator + "data.dat");
+                project.getFile().delete();
+                classF.delete();
+                try {
+                    final String words = new String(IOUtils.readData(data)).replace("|" + project + "|", "");
+                    IOUtils.write(data, words.getBytes());
+                    codePane.setText(project.getProperties().getSkeleton());
+                    highlightKeywords();
                     return;
+                } catch (final IOException e) {
+                    e.printStackTrace();
                 }
             }
+            JOptionPane.showMessageDialog(null, "Error deleting current code!");
         }
-        if (textPane.getText().length() == 0 || project == null) {
+    }
+
+    public void saveAndRun() {
+        if (codePane.getText().length() == 0 || project == null) {
             return;
         }
-        if (!project.save(textPane.getText())) {
+        if (!project.save(codePane.getText())) {
             JOptionPane.showMessageDialog(null, "Error saving current code!");
             return;
         }
         resultsTable.setResults(Executor.runAndGetResults(project));
     }
 
-    @Override
-    public void focusGained(FocusEvent e) {
-        setInstructionsText(project.getProperties().getDescription());
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-
-    }
 }

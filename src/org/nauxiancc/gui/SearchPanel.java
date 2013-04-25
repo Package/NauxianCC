@@ -32,7 +32,7 @@ public class SearchPanel extends JPanel {
     public SearchPanel() {
         super(new BorderLayout());
         final JPanel options = new JPanel(new FlowLayout(FlowLayout.LEADING));
-        final JPanel padding = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        final JPanel padding = new JPanel(new FlowLayout(FlowLayout.LEADING, 10, 5));
         final JTextField search = new JTextField();
         final ItemListener listener = new ItemListener() {
             @Override

@@ -116,7 +116,7 @@ public class Project {
         try {
             if (file.exists()) {
                 final byte[] data = IOUtils.readData(file);
-                return new String(IOUtils.readData(file), 0, data.length);
+                return new String(data);
             }
         } catch (Exception e) {
             e.printStackTrace();
