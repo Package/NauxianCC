@@ -1,10 +1,7 @@
 package org.nauxiancc.gui;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,16 +18,16 @@ import org.nauxiancc.configuration.Tip;
  * @since 1.0
  */
 
-public class Splash extends JFrame implements WindowListener, MouseListener {
+public class Splash {
 
-    private static final long serialVersionUID = -5296459157992617129L;
+    private final JFrame frame;
 
     private static String status = "Loading";
     private String name;
+    private String tip;
 
     private static final Color COLOR = new Color(250, 250, 250, 200);
     private static final Font FONT = new Font("Consolas", Font.PLAIN, 12);
-    private String tip;
     private boolean should;
 
     /**
@@ -40,24 +37,48 @@ public class Splash extends JFrame implements WindowListener, MouseListener {
      */
 
     public Splash() {
-        tip = Tip.getRandom();
-        final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        final Panel splash = new Panel();
+        frame = new JFrame();
+        final JPanel splash = new JPanel() {
 
+            @Override
+            public void paintComponent(Graphics g1) {
+                Graphics2D g = (Graphics2D) g1;
+                g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g.drawImage(Global.getImage(Global.SPLASH_IMAGE), 0, 0, this);
+                g.setColor(COLOR);
+                g.setFont(FONT);
+                g.drawString(status, 10, 190);
+                g.drawString("Welcome to Nauxian Computing Challenges " + name, 10, 15);
+                g.drawString(tip, 10, 90);
+            }
+        };
+
+        tip = Tip.getRandom();
         name = System.getProperty("user.name");
         if (name == null || name.length() == 0) {
             name = "Mr. Anderson"; // matrix.
         }
 
-        setUndecorated(true);
-        setLocation((int) (dim.getWidth() / 2) - 300, (int) (dim.getHeight() / 2) - 100);
-        setSize(600, 200);
-        setContentPane(splash);
+        frame.setIconImage(Global.getImage(Global.ICON_IMAGE));
+        frame.setUndecorated(true);
+        frame.setLocationRelativeTo(null);
+        frame.setSize(600, 200);
+        frame.setContentPane(splash);
 
-        repaint();
-
-        splash.addMouseListener(this);
-        addWindowListener(this);
+        splash.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tip = Tip.getRandom();
+            }
+        });
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (!should) {
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     /**
@@ -83,99 +104,15 @@ public class Splash extends JFrame implements WindowListener, MouseListener {
         Splash.status = status;
     }
 
-    @Override
-    public void windowOpened(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-        if (!should) {
-            System.exit(0);
-        }
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-        if (!should) {
-            System.exit(0);
-        }
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent arg0) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent arg0) {
-        final String next = Tip.getRandom();
-        if (next != null && !next.equals(tip)) {
-            tip = next;
-            repaint();
-        } else {
-            mousePressed(arg0);
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-
-    }
-
     /**
-     * Panel to give access to the painting components. It is the content pane
-     * for the splash screen.
+     * Used to call JFrame-specific calls such as <tt>dipose()</tt> or <tt>repaint()</tt>
      *
-     * @author Legend
+     * @return The splash screen's JFrame instance.
      * @since 1.0
      */
 
-    public class Panel extends JPanel {
-
-        private static final long serialVersionUID = 3579128244881997515L;
-
-        @Override
-        public void paintComponent(Graphics g1) {
-            Graphics2D g = (Graphics2D) g1;
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g.drawImage(Global.getImage(Global.SPLASH_IMAGE), 0, 0, this);
-            g.setColor(COLOR);
-            g.setFont(FONT);
-            g.drawString(status, 10, 190);
-            g.drawString("Welcome to Nauxian Computing Challenges " + name, 10, 15);
-            g.drawString(tip, 10, 90);
-        }
+    public JFrame getFrame(){
+        return frame;
     }
 
 }

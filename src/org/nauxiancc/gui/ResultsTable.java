@@ -18,6 +18,7 @@ import javax.swing.table.TableCellRenderer;
 
 import org.nauxiancc.configuration.Global.Paths;
 import org.nauxiancc.executor.Result;
+import org.nauxiancc.methods.IOUtils;
 import org.nauxiancc.projects.Project;
 
 /**
@@ -78,63 +79,47 @@ public class ResultsTable extends JTable implements TableCellRenderer {
      */
 
     public void setResults(final Result[] results) {
-        if (results == null) {
-            final DefaultTableModel m = new DefaultTableModel();
-            m.setColumnIdentifiers(HEADERS);
-            m.insertRow(0, HEADERS);
-            m.setColumnCount(3);
-            setModel(m);
-            return;
-        }
-        resultsCorrect = new boolean[results.length];
         final DefaultTableModel m = new DefaultTableModel();
         m.setColumnIdentifiers(HEADERS);
         m.insertRow(0, HEADERS);
         m.setColumnCount(3);
-        this.getColumnModel().getColumn(1).setCellRenderer(this);
-        boolean wrong = false;
-        for (int i = 0; i < results.length; i++) {
-            resultsCorrect[i] = results[i].isCorrect();
-            if (!wrong && !resultsCorrect[i]) {
-                wrong = true;
+        if (results != null) {
+            resultsCorrect = new boolean[results.length];
+            boolean wrong = false;
+            for (int i = 0; i < results.length; i++) {
+                resultsCorrect[i] = results[i].isCorrect();
+                if (!wrong && !resultsCorrect[i]) {
+                    wrong = true;
+                }
+                final Object[] arr = {results[i].getCorrectAnswer(), results[i].getResult(), Arrays.toString(results[i].getParameters())};
+                m.insertRow(i + 1, arr);
             }
-            final Object[] arr = {results[i].getCorrectAnswer(), results[i].getResult(), Arrays.toString(results[i].getParameters())};
-            m.insertRow(i + 1, arr);
+            if (!wrong) {
+                try {
+                    final File complete = new File(Paths.SETTINGS + File.separator + "data.dat");
+                    final byte[] data = IOUtils.readData(complete);
+                    String info = new String(data);
+                    if (!info.contains("|" + project.getName() + "|")) {
+                        info = info.concat("|" + project.getName() + "|");
+                    }
+                    IOUtils.write(complete, info.getBytes());
+                    project.setComplete(true);
+                } catch (final IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         setModel(m);
-        if (!wrong) {
-            try {
-                final File f = new File(Paths.SETTINGS + File.separator + "data.dat");
-                final PrintWriter os = new PrintWriter(new FileWriter(f, true));
-                final BufferedReader br = new BufferedReader(new FileReader(f));
-                final String temp = br.readLine();
-                if (temp != null) {
-                    if (!temp.contains("|" + project.getName() + "|")) {
-                        os.print("|" + project.getName() + "|");
-                    }
-                } else {
-                    os.print("|" + project.getName() + "|");
-                }
-                os.flush();
-                os.close();
-                br.close();
-                project.setComplete(true);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(final JTable table, final Object value, final boolean isSelected, final boolean hasFocus, final int row, final int column) {
         final JLabel label = new JLabel(value == null ? "" : value.toString());
         if (row == 0) {
             label.setFont(label.getFont().deriveFont(Font.BOLD));
-        } else {
-            if (row <= resultsCorrect.length) {
-                label.setForeground(resultsCorrect[row - 1] ? CORRECT : Color.RED);
-            }
+            return label;
         }
+        label.setForeground(resultsCorrect[row - 1] ? CORRECT : Color.RED);
         return label;
     }
 

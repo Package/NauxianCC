@@ -69,8 +69,8 @@ public class Boot {
                 if (desktop.isSupported(Desktop.Action.BROWSE)) {
                     try {
                         desktop.browse(new URI("www.oracle.com/technetwork/java/javase/downloads/"));
-                    } catch (Exception ignored) {
-
+                    } catch (final Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -82,13 +82,13 @@ public class Boot {
         final Timer repaint = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                splash.repaint();
+                splash.getFrame().repaint();
             }
         });
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
-                    splash.setVisible(true);
+                    splash.getFrame().setVisible(true);
                     repaint.start();
                 }
             });
@@ -105,7 +105,7 @@ public class Boot {
                     Splash.setStatus("Building GUI");
                     new GUI();
                     splash.shouldDispose(true);
-                    splash.dispose();
+                    splash.getFrame().dispose();
                     repaint.stop();
                 } catch (Exception e) {
                     e.printStackTrace();
