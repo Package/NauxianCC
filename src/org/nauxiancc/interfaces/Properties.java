@@ -1,16 +1,16 @@
 package org.nauxiancc.interfaces;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Properties {
 
     private static final String[] PROPERTIES = new String[]{"name", "version", "author", "description", "category", "parameter", "method", "return"};
     private static final String SKELETON = "public class $name {\n\t\n\tpublic $return $method($parameter){\n\t\t\n\t}\n\t\n}";
 
-    private final HashMap<String, String> map;
+    private final Map<String, String> map;
     private final String skeleton;
 
-    public Properties(final HashMap<String, String> map) {
+    public Properties(final Map<String, String> map) {
         String skeleton = SKELETON;
         for (final String property : PROPERTIES) {
             if (map.get(property) == null) {

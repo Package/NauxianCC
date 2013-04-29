@@ -46,7 +46,7 @@ public class Project {
      * @param runnerFile The file to read data from
      */
 
-    public Project(final String name, final File runnerFile) throws IOException, SAXException {
+    public Project(final String name, final File runnerFile) throws IOException, SAXException, XMLParser.DocumentNotPreparedException {
         try {
             final BufferedReader br = new BufferedReader(new FileReader(new File(Paths.SETTINGS + File.separator + "data.dat")));
             boolean b;

@@ -10,14 +10,35 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Parses XML files using only the value tag, for now.
+ * Is is required that all
+ *
+ * @author Naux
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class XMLParser {
 
     private static XMLParser instance;
     private final DocumentBuilder builder;
     private Document document;
+
+    /**
+     * This is used to get the instance of the <tt>XMLParser</tt>.
+     * If there is no instance, it will create a new one properly.
+     * This will prevent excessive DOM Objects from being created.
+     *
+     * @since 1.0
+     *
+     * @return The instance of the <tt>XMLParser</tt>
+     */
 
     public static XMLParser getInstance() {
         if (instance == null) {
@@ -30,40 +51,106 @@ public class XMLParser {
         return instance;
     }
 
+    /**
+     * Creates a new instance of the <tt>XMLParser</tt>.
+     * Ideally, this will only be done once.
+     *
+     * @throws ParserConfigurationException
+     * @since 1.0
+     */
+
     private XMLParser() throws ParserConfigurationException {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
     }
 
+    /**
+     * Prepares a file for reading. Checks to see if a file exists before
+     * If the file doesn't exist, a <tt>FileNotFoundException</tt> will be thrown.
+     *
+     * @param file The file from which you want to map attributes from.
+     * @throws IOException Typically from missing files.
+     * @throws SAXException Typically from invalid XML files that fail to normalize
+     * @since 1.0
+     */
+
     public void prepare(final File file) throws IOException, SAXException {
         if(!file.exists()){
-            return;
+            throw new FileNotFoundException("File: [" + file + "] could not be found.");
         }
         document = builder.parse(file);
         document.getDocumentElement().normalize();
     }
 
-    public HashMap<String, String> getAttributeMapping() {
-        final HashMap<String, String> map = new HashMap<>();
+    /**
+     * This will return a <tt>Map</tt> of properties from the XML file.
+     * A document must be prepared before it can be mapped.
+     *
+     * @return A <tt>Map</tt> containing attributes loaded from the prepared file.
+     * @throws DocumentNotPreparedException
+     *
+     * @since 1.0
+     */
+
+    public Map<String, String> getAttributeMapping() throws DocumentNotPreparedException {
+        if(document == null){
+            throw new DocumentNotPreparedException("document is null. A file must be prepared before mapping.");
+        }
+        final Map<String, String> map = new HashMap<>();
         addAll(map, document.getChildNodes());
         return map;
     }
 
-    private void addAll(final HashMap<String, String> map, final NodeList list) {
+    /**
+     * Adds attributes recursively from the XML file.
+     *
+     * TODO: Create a more legitimate node type verifier.
+     *
+     * @param map The map of the loaded attributes.
+     *            This gets added to as a pass-by reference.
+     * @param list The <tt>NodeList</tt> from the parent list.
+     *
+     * @since 1.0
+     */
+
+    private void addAll(final Map<String, String> map, final NodeList list) {
         for (int i = 0; i < list.getLength(); i++) {
             final Node n = list.item(i);
             if (n.getNodeType() == Node.ELEMENT_NODE) {
                 final Element e = (Element) n;
                 addAll(map, e.getChildNodes());
-                if (!e.getAttribute("value").isEmpty()) {
+                final String attribute = e.getAttribute("value");
+                if (!attribute.isEmpty()) {
                     if (map.containsKey(e.getTagName())) {
-                        map.put(e.getTagName(), map.get(e.getTagName()) + ", " + e.getAttribute("value"));
+                        map.put(e.getTagName(), map.get(e.getTagName()) + ", " + attribute);
                     } else {
-                        map.put(e.getTagName(), e.getAttribute("value"));
+                        map.put(e.getTagName(), attribute);
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Used to specify that a document has yet to been prepared.
+     * This is used only during the first mapping of the document.
+     *
+     * @author 1.0
+     * @since 1.0
+     */
+
+    public static class DocumentNotPreparedException extends IOException {
+
+        /**
+         * Creates a new <tt>DocumentNotPreparedException</tt>.
+         *
+         * @param message The message which should be appended to provide information.
+         */
+
+        public DocumentNotPreparedException(final String message){
+            super(message);
+        }
+
     }
 
 }
