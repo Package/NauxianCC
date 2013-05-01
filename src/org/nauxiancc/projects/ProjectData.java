@@ -31,6 +31,7 @@ public class ProjectData {
      */
 
     public static void loadCurrent() {
+        DATA.clear();
         final File root = new File(Paths.SOURCE);
         if (!root.exists()) {
             return;
