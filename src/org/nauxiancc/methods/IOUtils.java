@@ -6,7 +6,7 @@ import java.net.URL;
 /**
  * File downloader utility
  *
- * @author Naux
+ * @author Naux, Xhin
  * @since 1.0
  */
 
@@ -23,7 +23,7 @@ public class IOUtils {
      * @throws IOException
      * @since 1.0
      */
-    public static byte[] download(URL url) throws IOException {
+    public static byte[] download(final URL url) throws IOException {
         return readData(url.openStream());
     }
 
@@ -36,7 +36,7 @@ public class IOUtils {
      * @since 1.0
      */
 
-    public static byte[] readData(File file) throws IOException {
+    public static byte[] readData(final File file) throws IOException {
         return readData(new FileInputStream(file));
     }
 
@@ -51,7 +51,7 @@ public class IOUtils {
      * @since 1.0
      */
 
-    private static byte[] readData(InputStream in) throws IOException {
+    private static byte[] readData(final InputStream in) throws IOException {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         final byte[] data = new byte[1024];
         int read;
@@ -72,7 +72,7 @@ public class IOUtils {
      * @since 1.0
      */
 
-    public static void write(File file, byte[] data) throws IOException {
+    public static void write(final File file, final byte[] data) throws IOException {
         final FileOutputStream out = new FileOutputStream(file);
         out.write(data);
         out.close();

@@ -12,25 +12,23 @@ import java.io.*;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Updates all Runner information and program data. This is used in conjunction
  * with the boot class and only should be used in there. This class handles most
  * client data and also calls upon the other loaders.
  *
- * @author Naux
+ * @author Naux, Xhin
  * @since 1.0
  */
 public class Updater {
 
     private static double updatedClientVersion = 0.0;
-    private static HashMap<String, Double> updatedRunnersList = new HashMap<>();
+    private static LinkedHashMap<String, Double> updatedRunnersList = new LinkedHashMap<>();
 
     private static double currentClientVersion = 1.00;
-    private static HashMap<String, Double> currentRunnersList = new HashMap<>();
+    private static LinkedHashMap<String, Double> currentRunnersList = new LinkedHashMap<>();
 
     private Updater() {
     }
@@ -59,7 +57,7 @@ public class Updater {
             JOptionPane.showMessageDialog(null, "Unable to connect to internet; unable to check versions.", "Update", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        final ArrayList<String> sources = new ArrayList<>();
+        final HashSet<String> sources = new HashSet<>();
         sources.add(URLs.BIN);
         try {
             final File sourceFile = new File(Paths.SETTINGS, "sources.txt");
@@ -77,7 +75,7 @@ public class Updater {
             e.printStackTrace();
         }
         for (final String src : sources) {
-            byte[] updatedClientInfo = downloadCurrentClientInfo(src);
+            final byte[] updatedClientInfo = downloadCurrentClientInfo(src);
             if (updatedClientInfo == null) {
                 return;
             }
