@@ -48,19 +48,6 @@ public class CustomClassLoader extends ClassLoader {
     }
 
     /**
-     * Loading a class from a byte buffer. Often provided by an input reader.
-     *
-     * @param name A <tt>String</tt> representing the name of the file for
-     *             definition.
-     * @param data Bytes loaded from the class file.
-     * @return A class instance from a defined file.
-     */
-
-    public static Class<?> loadClassFromData(String name, byte[] data) {
-        return new CustomClassLoader().loadClassFromData_(name, data);
-    }
-
-    /**
      * Loads a class and defines it using methods inherited from
      * {@link ClassLoader}.
      *
@@ -77,22 +64,4 @@ public class CustomClassLoader extends ClassLoader {
         }
         return null;
     }
-
-    /**
-     * Reads a class from a byte array. Often loaded from an input reader.
-     *
-     * @param name Name of the class for a definition.
-     * @param data Data to read from.
-     * @return A class instance from a defined file.
-     */
-
-    private Class<?> loadClassFromData_(String name, byte[] data) {
-        try {
-            return super.defineClass(name, data, 0, data.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }

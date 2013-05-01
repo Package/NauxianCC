@@ -33,7 +33,7 @@ public class GUI {
         final JFrame frame = new JFrame("Nauxian Computing Challenges v" + Updater.clientVersion());
         final JPanel main = new JPanel(new BorderLayout());
         final JPanel content = new JPanel(new BorderLayout());
-        final JPanel mainpane = new JPanel();
+        final JPanel mainPane = new JPanel();
         final JPanel homeFill = new JPanel();
         final JLabel home = new JLabel("Home", JLabel.CENTER);
         final SearchPanel search = new SearchPanel();
@@ -51,17 +51,17 @@ public class GUI {
         content.add(search, BorderLayout.NORTH);
         content.add(selector, BorderLayout.CENTER);
 
-        mainpane.setOpaque(false);
+        mainPane.setOpaque(false);
         homeFill.setLayout(new BorderLayout());
         homeFill.setPreferredSize(TAB_SIZE);
         homeFill.add(home, SwingConstants.CENTER);
         homeFill.setOpaque(false);
         home.setOpaque(false);
 
-        mainpane.add(homeFill);
+        mainPane.add(homeFill);
         tabs.setTabPlacement(SwingConstants.LEFT);
         tabs.add(content, tabs.getTabCount());
-        tabs.setTabComponentAt(tabs.getTabCount() - 1, mainpane);
+        tabs.setTabComponentAt(tabs.getTabCount() - 1, mainPane);
 
         main.add(tabs);
         frame.pack();

@@ -52,13 +52,15 @@ public class Boot {
             System.exit(0);
         }
         try {
-            instance.createNewFile();
-            instance.deleteOnExit();
-            Runtime.getRuntime().exec("attrib +H " + path);
+            if (instance.createNewFile()) {
+                instance.deleteOnExit();
+                Runtime.getRuntime().exec("attrib +H " + path);
+            }
         } catch (final IOException e) {
             e.printStackTrace();
-            instance.delete();
-            System.exit(0);
+            if (instance.delete()) {
+                System.exit(0);
+            }
         }
         if (!Executor.hasJDKInstalled()) {
             final String message = "<html>You need to have JDK installed to run NauxianCC.<br>Click 'Ok' if you would like to go to the JDK site.</html>";

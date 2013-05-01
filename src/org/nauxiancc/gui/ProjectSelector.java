@@ -33,7 +33,7 @@ public class ProjectSelector extends JPanel {
 
     public ProjectSelector() {
         super(new BorderLayout());
-        selector = new JPanel(new SelectorLayout(FlowLayout.LEADING, 5, 5));
+        selector = new JPanel(new SelectorLayout());
         for (final Project project : ProjectData.DATA) {
             final ProjectPanel temp = new ProjectPanel(project);
             PROJECTS.add(temp);

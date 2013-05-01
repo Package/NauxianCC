@@ -92,16 +92,20 @@ public class Global {
 
         public static void build() {
             for (final String s : PATHS) {
-                final File f = new File(s);
-                if (!f.exists()) {
+                final File file = new File(s);
+                if (!file.exists()) {
                     Splash.setStatus("Creating Directory: " + s);
-                    f.mkdir();
+                    if(file.mkdir()){
+                        System.out.println("Created " + file);
+                    }
                 }
             }
             final File complete = new File(SETTINGS + File.separator + "data.dat");
             if (!complete.exists()) {
                 try {
-                    complete.createNewFile();
+                    if(complete.createNewFile()){
+                        System.out.println("Created " + complete);
+                    }
                 } catch (IOException e) {
                     System.err.println("Failed to create data file.");
                     System.err.println("Completion progress will not be saved, code still will be.");

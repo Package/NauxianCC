@@ -32,19 +32,22 @@ public class ProjectData {
 
     public static void loadCurrent() {
         final File root = new File(Paths.SOURCE);
-        if (!root.exists() || root.listFiles() == null) {
+        if (!root.exists()) {
             return;
         }
-        for (final File file : root.listFiles()) {
-            final String name = file.getName();
-            final int idx = name.indexOf("Runner.class");
-            if (idx == -1) {
-                continue;
-            }
-            try {
-                DATA.add(new Project(name.substring(0, idx), file));
-            } catch (final Exception e) {
-                e.printStackTrace();
+        final String[] list = root.list();
+        for (final String name : list) {
+            if (name != null) {
+                final File file = new File(root, name);
+                final int idx = name.indexOf("Runner.class");
+                if (idx == -1) {
+                    continue;
+                }
+                try {
+                    DATA.add(new Project(name.substring(0, idx), file));
+                } catch (final Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

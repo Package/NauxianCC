@@ -186,16 +186,16 @@ public class JavaEditor extends JPanel {
             if (project.getFile().exists()) {
                 final File classF = new File(project.getFile().getAbsolutePath().replace(".java", ".class"));
                 final File data = new File(Paths.SETTINGS + File.separator + "data.dat");
-                project.getFile().delete();
-                classF.delete();
-                try {
-                    final String words = new String(IOUtils.readData(data)).replace(String.format("|%040x|", new BigInteger(project.getName().getBytes())), "");
-                    IOUtils.write(data, words.getBytes());
-                    codePane.setText(project.getProperties().getSkeleton());
-                    highlightKeywords();
-                    return;
-                } catch (final IOException e) {
-                    e.printStackTrace();
+                if (project.getFile().delete() && classF.delete()) {
+                    try {
+                        final String words = new String(IOUtils.readData(data)).replace(String.format("|%040x|", new BigInteger(project.getName().getBytes())), "");
+                        IOUtils.write(data, words.getBytes());
+                        codePane.setText(project.getProperties().getSkeleton());
+                        highlightKeywords();
+                        return;
+                    } catch (final IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             JOptionPane.showMessageDialog(null, "Error deleting current code!");

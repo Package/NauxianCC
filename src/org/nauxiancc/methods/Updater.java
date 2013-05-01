@@ -63,17 +63,16 @@ public class Updater {
         sources.add(URLs.BIN);
         try {
             final File sourceFile = new File(Paths.SETTINGS, "sources.txt");
-            if (!sourceFile.exists()) {
-                sourceFile.createNewFile();
-            }
-            final BufferedReader br = new BufferedReader(new FileReader(sourceFile));
-            String next;
-            while ((next = br.readLine()) != null) {
-                if (!next.startsWith("#")) {
-                    sources.add(next);
+            if ( sourceFile.exists() || sourceFile.createNewFile()) {
+                final BufferedReader br = new BufferedReader(new FileReader(sourceFile));
+                String next;
+                while ((next = br.readLine()) != null) {
+                    if (!next.startsWith("#")) {
+                        sources.add(next);
+                    }
                 }
+                br.close();
             }
-            br.close();
         } catch (final Exception e) {
             e.printStackTrace();
         }
