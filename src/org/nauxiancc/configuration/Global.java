@@ -1,14 +1,13 @@
 package org.nauxiancc.configuration;
 
-import java.awt.Image;
+import org.nauxiancc.gui.Splash;
+import org.nauxiancc.methods.Updater;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import org.nauxiancc.gui.Splash;
-import org.nauxiancc.methods.Updater;
 
 /**
  * Used for file, directory and image creations. Contains information regarding

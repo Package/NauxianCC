@@ -1,12 +1,5 @@
 package org.nauxiancc.projects;
 
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.math.BigInteger;
-
 import org.nauxiancc.configuration.Global.Paths;
 import org.nauxiancc.gui.ProjectPanel;
 import org.nauxiancc.gui.ProjectSelector;
@@ -15,6 +8,11 @@ import org.nauxiancc.methods.CustomClassLoader;
 import org.nauxiancc.methods.IOUtils;
 import org.nauxiancc.methods.XMLParser;
 import org.xml.sax.SAXException;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
 
 /**
  * Used for handling project attributes and other data
@@ -48,28 +46,17 @@ public class Project {
      */
 
     public Project(final String name, final File runnerFile) throws IOException, SAXException {
-        try {
-            final BufferedReader br = new BufferedReader(new FileReader(new File(Paths.SETTINGS + File.separator + "data.dat")));
-            boolean b;
-            try {
-                final String in = br.readLine();
-                b = (in.contains(String.format("|%040x|", new BigInteger(name.getBytes()))));
-            } catch (Exception e) {
-                b = false;
-            }
-            complete = b;
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Error getting instructions for " + name);
-        }
-        file = new File(Paths.JAVA + File.separator + name + ".java");
-        runner = CustomClassLoader.loadClassFromFile(runnerFile);
+        final File data = new File(Paths.SETTINGS + File.separator + "data.dat");
+        final String in = new String(IOUtils.readData(data));
         final XMLParser parser = XMLParser.getInstance();
         final File xml = new File(Paths.SOURCE, name + "Runner.xml");
         parser.prepare(xml);
+
         this.properties = new Properties(parser.getAttributeMapping());
         this.name = name;
+        this.complete = (in.contains(String.format("|%040x|", new BigInteger(name.getBytes()))));
+        this.file = new File(Paths.JAVA + File.separator + name + ".java");
+        this.runner = CustomClassLoader.loadClassFromFile(runnerFile);
     }
 
     /**
@@ -93,7 +80,7 @@ public class Project {
     }
 
 
-    public Properties getProperties(){
+    public Properties getProperties() {
         return properties;
     }
 

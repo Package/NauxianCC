@@ -1,22 +1,15 @@
 package org.nauxiancc.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.projects.Project;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-
-import org.nauxiancc.configuration.Global;
-import org.nauxiancc.projects.Project;
 
 /**
  * This class is used for the construction of the
@@ -69,7 +62,7 @@ public class ProjectPanel extends JPanel implements Comparable<ProjectPanel> {
         }
         builder.trimToSize();
         name.setText(builder.toString());
-        if(name.getText().length() == 0){
+        if (name.getText().length() == 0) {
             name.setText(project.getName());
         }
 

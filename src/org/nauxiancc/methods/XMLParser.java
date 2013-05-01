@@ -35,9 +35,8 @@ public class XMLParser {
      * If there is no instance, it will create a new one properly.
      * This will prevent excessive DOM Objects from being created.
      *
-     * @since 1.0
-     *
      * @return The instance of the <tt>XMLParser</tt>
+     * @since 1.0
      */
 
     public static XMLParser getInstance() {
@@ -69,13 +68,13 @@ public class XMLParser {
      * If the file doesn't exist, a <tt>FileNotFoundException</tt> will be thrown.
      *
      * @param file The file from which you want to map attributes from.
-     * @throws IOException Typically from missing files.
+     * @throws IOException  Typically from missing files.
      * @throws SAXException Typically from invalid XML files that fail to normalize
      * @since 1.0
      */
 
     public void prepare(final File file) throws IOException, SAXException {
-        if(!file.exists()){
+        if (!file.exists()) {
             throw new FileNotFoundException("File: [" + file + "] could not be found.");
         }
         document = builder.parse(file);
@@ -88,12 +87,11 @@ public class XMLParser {
      *
      * @return A <tt>Map</tt> containing attributes loaded from the prepared file.
      * @throws DocumentNotPreparedException
-     *
      * @since 1.0
      */
 
     public Map<String, String> getAttributeMapping() throws DocumentNotPreparedException {
-        if(document == null){
+        if (document == null) {
             throw new DocumentNotPreparedException("document is null. A file must be prepared before mapping.");
         }
         final Map<String, String> map = new HashMap<>();
@@ -103,13 +101,12 @@ public class XMLParser {
 
     /**
      * Adds attributes recursively from the XML file.
-     *
+     * <p/>
      * TODO: Create a more legitimate node type verifier.
      *
-     * @param map The map of the loaded attributes.
-     *            This gets added to as a pass-by reference.
+     * @param map  The map of the loaded attributes.
+     *             This gets added to as a pass-by reference.
      * @param list The <tt>NodeList</tt> from the parent list.
-     *
      * @since 1.0
      */
 
@@ -147,7 +144,7 @@ public class XMLParser {
          * @param message The message which should be appended to provide information.
          */
 
-        public DocumentNotPreparedException(final String message){
+        public DocumentNotPreparedException(final String message) {
             super(message);
         }
 

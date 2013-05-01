@@ -1,7 +1,5 @@
 package org.nauxiancc;
 
-import javax.swing.*;
-
 import org.nauxiancc.configuration.Global;
 import org.nauxiancc.configuration.Global.Paths;
 import org.nauxiancc.executor.Executor;
@@ -9,6 +7,7 @@ import org.nauxiancc.gui.GUI;
 import org.nauxiancc.gui.Splash;
 import org.nauxiancc.methods.Updater;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,12 +57,12 @@ public class Boot {
             Runtime.getRuntime().exec("attrib +H " + path);
         } catch (final IOException e) {
             e.printStackTrace();
+            instance.delete();
             System.exit(0);
         }
         if (!Executor.hasJDKInstalled()) {
-            final int option = JOptionPane.showConfirmDialog(null,
-                    "<html>You need to have JDK installed to run NauxianCC.<br>Click 'Ok' if you would like to go to the JDK site.</html>", "JDK Required",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+            final String message = "<html>You need to have JDK installed to run NauxianCC.<br>Click 'Ok' if you would like to go to the JDK site.</html>";
+            final int option = JOptionPane.showConfirmDialog(null, message, "JDK Required", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
                 final Desktop desktop = Desktop.getDesktop();
                 if (desktop.isSupported(Desktop.Action.BROWSE)) {
@@ -75,11 +74,10 @@ public class Boot {
                 }
             }
             System.exit(0);
-            return;
         }
         final Splash splash = new Splash();
         Splash.setStatus("Loading");
-        final Timer repaint = new Timer(20, new ActionListener() {
+        final Timer repaint = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 splash.getFrame().repaint();

@@ -1,9 +1,9 @@
 package org.nauxiancc.projects;
 
+import org.nauxiancc.configuration.Global.Paths;
+
 import java.io.File;
 import java.util.LinkedList;
-
-import org.nauxiancc.configuration.Global.Paths;
 
 /**
  * Loads locally found runners for the updater and for the loader. This will
@@ -15,7 +15,7 @@ import org.nauxiancc.configuration.Global.Paths;
 
 public class ProjectData {
 
-    public static LinkedList<Project> DATA;
+    public static final LinkedList<Project> DATA = new LinkedList<>();
 
     private ProjectData() {
     }
@@ -31,7 +31,6 @@ public class ProjectData {
      */
 
     public static void loadCurrent() {
-        DATA = new LinkedList<>();
         final File root = new File(Paths.SOURCE);
         if (!root.exists() || root.listFiles() == null) {
             return;
@@ -43,8 +42,7 @@ public class ProjectData {
                 continue;
             }
             try {
-                final Project p = new Project(name.substring(0, idx), file);
-                DATA.add(p);
+                DATA.add(new Project(name.substring(0, idx), file));
             } catch (final Exception e) {
                 e.printStackTrace();
             }

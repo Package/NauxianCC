@@ -1,18 +1,13 @@
 package org.nauxiancc.methods;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 
 /**
  * File downloader utility
  *
- * @since 1.0
  * @author Naux
+ * @since 1.0
  */
 
 public class IOUtils {
@@ -21,24 +16,24 @@ public class IOUtils {
     }
 
     /**
-     *  Will download file data ready to be exported to a file
+     * Will download file data ready to be exported to a file
      *
-     * @since 1.0
      * @param url The valid URL you wish to read data from
      * @return byte array of data. Building a file from this is safe
      * @throws IOException
+     * @since 1.0
      */
     public static byte[] download(URL url) throws IOException {
         return readData(url.openStream());
     }
 
     /**
-     *  This will read a local file and return data which can be manipulated easily
+     * This will read a local file and return data which can be manipulated easily
      *
-     * @since 1.0
      * @param file Will load data from a local file
      * @return byte array of data. Building a file or modification of a file from this is safe
      * @throws IOException
+     * @since 1.0
      */
 
     public static byte[] readData(File file) throws IOException {
@@ -48,13 +43,12 @@ public class IOUtils {
     /**
      * Reads data from an input stream, either a File or URL
      *
-     * @see {org.powerbat.methods.IOUtils.download(URL);}
-     * @see {org.powerbat.methods.IOUtils.readData(File);}
-     *
-     * @since 1.0
      * @param in input stream to read data from. Allocates 1024 bytes per cycle
      * @return a mutable byte array for file storing or manipulation
      * @throws IOException
+     * @see {org.powerbat.methods.IOUtils.download(URL);}
+     * @see {org.powerbat.methods.IOUtils.readData(File);}
+     * @since 1.0
      */
 
     private static byte[] readData(InputStream in) throws IOException {
@@ -71,12 +65,11 @@ public class IOUtils {
     /**
      * Writes a file and byte data to a specific destination
      *
-     * @see {IOUtils.download(URL);}
-     *
-     * @since 1.0
      * @param file The file to be written to, does not necessarily have to exist.
      * @param data The data to be written. It is best used with url-based files
      * @throws IOException
+     * @see {IOUtils.download(URL);}
+     * @since 1.0
      */
 
     public static void write(File file, byte[] data) throws IOException {

@@ -1,13 +1,12 @@
 package org.nauxiancc.gui;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import org.nauxiancc.configuration.Global;
 import org.nauxiancc.configuration.Message;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * The splash screen loaded before the main application. It displays information
@@ -104,7 +103,7 @@ public class Splash {
      * @since 1.0
      */
 
-    public JFrame getFrame(){
+    public JFrame getFrame() {
         return frame;
     }
 

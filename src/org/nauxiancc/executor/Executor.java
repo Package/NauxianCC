@@ -1,18 +1,16 @@
 package org.nauxiancc.executor;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Method;
-import java.util.Date;
-
 import org.nauxiancc.configuration.Global;
 import org.nauxiancc.gui.GUI;
 import org.nauxiancc.gui.JavaEditor;
 import org.nauxiancc.methods.CustomClassLoader;
 import org.nauxiancc.projects.Project;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * Source code compiler and executor. This is used internally during the run of
@@ -90,7 +88,7 @@ public class Executor {
                 replacement.append(build);
                 replacement.append('\n');
             }
-            if(replacement.length() != 0){
+            if (replacement.length() != 0) {
                 editor.setInstructionsText(replacement.toString());
                 return false;
             }

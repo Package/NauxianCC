@@ -1,12 +1,11 @@
 package org.nauxiancc.gui;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import org.nauxiancc.configuration.Global;
 import org.nauxiancc.methods.Updater;
 import org.nauxiancc.projects.Project;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Only for use in the boot and the setting and getting of Projects.

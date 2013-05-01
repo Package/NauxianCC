@@ -1,5 +1,13 @@
 package org.nauxiancc.methods;
 
+import org.nauxiancc.configuration.Global;
+import org.nauxiancc.configuration.Global.Paths;
+import org.nauxiancc.configuration.Global.URLs;
+import org.nauxiancc.gui.Splash;
+import org.nauxiancc.projects.Project;
+import org.nauxiancc.projects.ProjectData;
+
+import javax.swing.*;
 import java.io.*;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -7,15 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-
-import javax.swing.JOptionPane;
-
-import org.nauxiancc.configuration.Global;
-import org.nauxiancc.configuration.Global.Paths;
-import org.nauxiancc.configuration.Global.URLs;
-import org.nauxiancc.gui.Splash;
-import org.nauxiancc.projects.Project;
-import org.nauxiancc.projects.ProjectData;
 
 /**
  * Updates all Runner information and program data. This is used in conjunction

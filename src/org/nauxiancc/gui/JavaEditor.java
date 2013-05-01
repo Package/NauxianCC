@@ -1,24 +1,19 @@
 package org.nauxiancc.gui;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.*;
-import java.math.BigInteger;
-import java.util.Arrays;
-
-import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-
 import org.nauxiancc.configuration.Global.Paths;
 import org.nauxiancc.executor.Executor;
 import org.nauxiancc.methods.IOUtils;
 import org.nauxiancc.projects.Project;
+
+import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Arrays;
 
 /**
  * The main panel for editing the runner's code, displaying instructions and

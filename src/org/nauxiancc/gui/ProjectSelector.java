@@ -1,14 +1,13 @@
 package org.nauxiancc.gui;
 
+import org.nauxiancc.projects.Project;
+import org.nauxiancc.projects.ProjectData;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import javax.swing.*;
-
-import org.nauxiancc.projects.Project;
-import org.nauxiancc.projects.ProjectData;
 
 /**
  * The selector is used to display the list of available projects and allow the
@@ -55,16 +54,15 @@ public class ProjectSelector extends JPanel {
     }
 
     /**
-     *
      * Filters out <tt>ProjectPanels</tt> by a search key or based
      * conditions. This method clears the panel, then re-adds components
      * that meet the required conditions if any.
      *
-     * @param key           The key to search for in name
-     * @param complete      Whether or not to include complete projects
-     * @param name          Whether or not to search by name. This uses
-     *                      the <tt>key</tt> for reference
-     * @param incomplete    Whether or not to include incomplete projects
+     * @param key        The key to search for in name
+     * @param complete   Whether or not to include complete projects
+     * @param name       Whether or not to search by name. This uses
+     *                   the <tt>key</tt> for reference
+     * @param incomplete Whether or not to include incomplete projects
      */
 
     public void refine(final String key, boolean complete, boolean name, boolean incomplete) {

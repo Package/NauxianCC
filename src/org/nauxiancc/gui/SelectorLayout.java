@@ -1,15 +1,14 @@
 package org.nauxiancc.gui;
 
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 
 /**
  * FlowLayout subclass that fully supports wrapping of components.
  *
  * @author Naux
- * @since 1.02
  * @version 1.0
+ * @since 1.02
  */
 public class SelectorLayout extends FlowLayout {
 
@@ -17,7 +16,7 @@ public class SelectorLayout extends FlowLayout {
      * Creates a new flow layout manager with the indicated alignment
      * and the indicated horizontal and vertical gaps.
      * <p/>
-     *
+     * <p/>
      * The value of the alignment argument must be one of
      * <code>FlowLayout.LEFT</code>, <code>FlowLayout.RIGHT</code>,
      * <code>FlowLayout.CENTER</code>, <code>FlowLayout.LEADING</code>,
@@ -35,7 +34,7 @@ public class SelectorLayout extends FlowLayout {
      * Returns the preferred dimension needed to layout the target
      * container.
      *
-     * @param target    target to get layout size for
+     * @param target target to get layout size for
      * @return the dimension to layout the target container
      */
     @Override
