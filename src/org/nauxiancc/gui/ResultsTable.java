@@ -1,25 +1,18 @@
 package org.nauxiancc.gui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
-
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import org.nauxiancc.configuration.Global.Paths;
 import org.nauxiancc.executor.Result;
 import org.nauxiancc.methods.IOUtils;
 import org.nauxiancc.projects.Project;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Arrays;
 
 /**
  * This is always linked to a specific Java editor and project. It displays the
@@ -86,21 +79,22 @@ public class ResultsTable extends JTable implements TableCellRenderer {
         if (results != null) {
             resultsCorrect = new boolean[results.length];
             boolean wrong = false;
-            for (int i = 0; i < results.length; i++) {
+            for (int i = 0; i < results.length; ) {
                 resultsCorrect[i] = results[i].isCorrect();
                 if (!wrong && !resultsCorrect[i]) {
                     wrong = true;
                 }
                 final Object[] arr = {results[i].getCorrectAnswer(), results[i].getResult(), Arrays.toString(results[i].getParameters())};
-                m.insertRow(i + 1, arr);
+                m.insertRow(++i, arr);
             }
             if (!wrong) {
                 try {
                     final File complete = new File(Paths.SETTINGS + File.separator + "data.dat");
                     final byte[] data = IOUtils.readData(complete);
                     String info = new String(data);
-                    if (!info.contains("|" + project.getName() + "|")) {
-                        info = info.concat("|" + project.getName() + "|");
+                    final String format = String.format("|%040x|", new BigInteger(project.getName().getBytes(/*YOUR_CHARSET?*/)));
+                    if (!info.contains(format)) {
+                        info = info.concat(format);
                     }
                     IOUtils.write(complete, info.getBytes());
                     project.setComplete(true);

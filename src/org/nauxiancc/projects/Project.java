@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 
 import org.nauxiancc.configuration.Global.Paths;
 import org.nauxiancc.gui.ProjectPanel;
@@ -46,13 +47,13 @@ public class Project {
      * @param runnerFile The file to read data from
      */
 
-    public Project(final String name, final File runnerFile) throws IOException, SAXException, XMLParser.DocumentNotPreparedException {
+    public Project(final String name, final File runnerFile) throws IOException, SAXException {
         try {
             final BufferedReader br = new BufferedReader(new FileReader(new File(Paths.SETTINGS + File.separator + "data.dat")));
             boolean b;
             try {
                 final String in = br.readLine();
-                b = (in.contains("|" + name + "|"));
+                b = (in.contains(String.format("|%040x|", new BigInteger(name.getBytes()))));
             } catch (Exception e) {
                 b = false;
             }

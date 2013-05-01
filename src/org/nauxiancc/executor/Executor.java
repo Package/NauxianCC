@@ -29,7 +29,6 @@ public class Executor {
             final Process r = Runtime.getRuntime().exec("javac -version");
             final BufferedReader read = new BufferedReader(new InputStreamReader(r.getErrorStream()));
             return !read.readLine().startsWith("'javac' is not recognized");
-
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -48,17 +47,14 @@ public class Executor {
      * @since 1.0
      */
 
-    public static Result[] runAndGetResults(Project project) {
-        if (project != null) {
-            if (compileClass(project)) {
-                try {
-                    final Class<?> ref = project.getRunner();
-                    final Method m = ref.getMethod("getResults", Class.class);
-                    return (Result[]) m.invoke(ref.newInstance(),
-                            CustomClassLoader.loadClassFromFile(Global.Paths.JAVA + File.separator + project.getName() + ".class"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    public static Result[] runAndGetResults(final Project project) {
+        if (project != null && compileClass(project)) {
+            try {
+                final Class<?> ref = project.getRunner();
+                final Method method = ref.getMethod("getResults", Class.class);
+                return (Result[]) method.invoke(ref.newInstance(), CustomClassLoader.loadClassFromFile(Global.Paths.JAVA + File.separator + project.getName() + ".class"));
+            } catch (final Exception e) {
+                e.printStackTrace();
             }
         }
         return null;
@@ -80,46 +76,29 @@ public class Executor {
      */
 
     private static boolean compileClass(Project project) {
-        InputStream err = null;
         try {
-            final String projectParent = project.getFile().getParent();
-            final String projectFile = project.getFile().getPath();
-            final String cmd = "javac -g  -d " + projectParent
-                    + " " + projectFile;
-            final Process p = Runtime.getRuntime().exec(cmd, null, null);
-            err = p.getErrorStream();
-            p.waitFor();
-            final BufferedReader error = new BufferedReader(new InputStreamReader(err));
-            String line;
-            boolean failed = false;
-            final String format = "[" + new Date(System.currentTimeMillis()).toString() + "]_>";
+            final String format = "[" + new Date(System.currentTimeMillis()) + "]";
             final JavaEditor editor = GUI.tabByName(project.getName());
+            final Process p = Runtime.getRuntime().exec("javac -g  -d " + project.getFile().getParent() + " " + project.getFile().getPath(), null, null);
+            p.waitFor();
+            final BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            String line;
+            final StringBuilder replacement = new StringBuilder();
             while ((line = error.readLine()) != null) {
-                if (!failed) {
-                    editor.setInstructionsText("");
-                    failed = true;
-                }
-                System.err.print(format);
-                final String build = line.concat("\n").substring(Math.max(line.indexOf("java:"), 0)).replace("java:", "line ");
-                System.err.print(build);
-                editor.append(build);
+                final String build = line.substring(Math.max(line.indexOf("java:"), 0)).replace("java:", "line ");
+                System.err.println(format + build);
+                replacement.append(build);
+                replacement.append('\n');
             }
-            return !failed;
-        } catch (Exception e) {
-            if (err != null) {
-                final BufferedReader in = new BufferedReader(new InputStreamReader(err));
-                String s;
-                try {
-                    while ((s = in.readLine()) != null) {
-                        System.err.println(s);
-                    }
-                } catch (final IOException e1) {
-                    e1.printStackTrace();
-                }
+            if(replacement.length() != 0){
+                editor.setInstructionsText(replacement.toString());
+                return false;
             }
+            return true;
+        } catch (final Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
 }

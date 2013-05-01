@@ -1,7 +1,7 @@
 package org.nauxiancc.projects;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.nauxiancc.configuration.Global.Paths;
 
@@ -15,7 +15,7 @@ import org.nauxiancc.configuration.Global.Paths;
 
 public class ProjectData {
 
-    public static ArrayList<Project> DATA;
+    public static LinkedList<Project> DATA;
 
     private ProjectData() {
     }
@@ -31,7 +31,7 @@ public class ProjectData {
      */
 
     public static void loadCurrent() {
-        DATA = new ArrayList<>();
+        DATA = new LinkedList<>();
         final File root = new File(Paths.SOURCE);
         if (!root.exists() || root.listFiles() == null) {
             return;

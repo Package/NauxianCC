@@ -8,6 +8,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
+import java.math.BigInteger;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -193,7 +194,7 @@ public class JavaEditor extends JPanel {
                 project.getFile().delete();
                 classF.delete();
                 try {
-                    final String words = new String(IOUtils.readData(data)).replace("|" + project + "|", "");
+                    final String words = new String(IOUtils.readData(data)).replace(String.format("|%040x|", new BigInteger(project.getName().getBytes())), "");
                     IOUtils.write(data, words.getBytes());
                     codePane.setText(project.getProperties().getSkeleton());
                     highlightKeywords();

@@ -37,7 +37,7 @@ public class GUI {
         final JPanel mainpane = new JPanel();
         final JPanel homeFill = new JPanel();
         final JLabel home = new JLabel("Home", JLabel.CENTER);
-        final SearchPanel search  = new SearchPanel();
+        final SearchPanel search = new SearchPanel();
 
         selector = new ProjectSelector();
         tabs = new JTabbedPane();
@@ -46,13 +46,8 @@ public class GUI {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1000, 600));
         frame.setMinimumSize(frame.getPreferredSize());
-        frame.setLocationRelativeTo(frame.getParent());
-
-        try {
-            frame.setIconImage(Global.getImage(Global.ICON_IMAGE));
-        } catch (Exception e) {
-            Splash.setStatus("Downloading icon failed");
-        }
+        frame.setLocationRelativeTo(null);
+        frame.setIconImage(Global.getImage(Global.ICON_IMAGE));
 
         content.add(search, BorderLayout.NORTH);
         content.add(selector, BorderLayout.CENTER);
@@ -89,10 +84,8 @@ public class GUI {
         final JavaEditor editor = new JavaEditor(project);
         editor.setInstructionsText(project.getProperties().getDescription());
         if (tabByName(project.getName()) == null) {
-
             tabs.add(editor, tabs.getTabCount());
             tabs.setTabComponentAt(tabs.getTabCount() - 1, new TabPane(project));
-
         }
         tabs.setSelectedComponent(tabByName(project.getName()));
     }
@@ -106,9 +99,9 @@ public class GUI {
      * @since 1.0
      */
 
-    public synchronized static JavaEditor tabByName(String name) {
+    public synchronized static JavaEditor tabByName(final String name) {
         for (final Component c : tabs.getComponents()) {
-            if (c != null && c instanceof JavaEditor) {
+            if (c instanceof JavaEditor) {
                 final JavaEditor c1 = (JavaEditor) c;
                 if (name.equals(c1.getName())) {
                     return c1;
@@ -125,12 +118,10 @@ public class GUI {
      * @since 1.0
      */
 
-    public synchronized static void removeTab(String name) {
-        JavaEditor cur = tabByName(name);
+    public synchronized static void removeTab(final String name) {
+        final JavaEditor cur = tabByName(name);
         if (cur != null) {
             tabs.remove(cur);
-            cur.removeAll();
-            System.gc();
             return;
         }
         System.err.println("Failed to close tab " + name);
@@ -139,10 +130,10 @@ public class GUI {
     /**
      * Returns the ProjectSelector instance
      *
-     * @return  <tt>ProjectSelector</tt> instance created upon GUI initialization
+     * @return <tt>ProjectSelector</tt> instance created upon GUI initialization
      */
 
-    public static ProjectSelector getSelector(){
+    public static ProjectSelector getSelector() {
         return selector;
     }
 

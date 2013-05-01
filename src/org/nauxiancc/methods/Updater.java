@@ -60,26 +60,23 @@ public class Updater {
             JOptionPane.showMessageDialog(null, "Unable to connect to internet; unable to check versions.", "Update", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String[] sources;
+        final ArrayList<String> sources = new ArrayList<>();
+        sources.add(URLs.BIN);
         try {
             final File sourceFile = new File(Paths.SETTINGS, "sources.txt");
             if (!sourceFile.exists()) {
                 sourceFile.createNewFile();
             }
             final BufferedReader br = new BufferedReader(new FileReader(sourceFile));
-            final ArrayList<String> src = new ArrayList<>();
-            src.add(URLs.BIN);
             String next;
             while ((next = br.readLine()) != null) {
-                if (!next.contains("#")) {
-                    src.add(next);
+                if (!next.startsWith("#")) {
+                    sources.add(next);
                 }
             }
-            sources = src.toArray(new String[src.size()]);
             br.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
-            sources = new String[]{URLs.BIN};
         }
         for (final String src : sources) {
             byte[] updatedClientInfo = downloadCurrentClientInfo(src);
@@ -88,24 +85,15 @@ public class Updater {
             }
             parseUpdated(updatedClientInfo, src);
             if (updatedClientVersion > currentClientVersion) {
-                JOptionPane.showMessageDialog(null, "Update available - Please download from powerbot.org again.", "Update",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Update available - Please download from powerbot.org again.", "Update", JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
-                return;
             }
-            final ArrayList<Project> data = ProjectData.DATA;
             final String runner = "Runner";
-            for (final Project p : data) {
+            for (final Project p : ProjectData.DATA) {
                 currentRunnersList.put(p.getName() + runner, p.getProperties().getVersion());
             }
             for (final String key : updatedRunnersList.keySet()) {
-                if (!currentRunnersList.containsKey(key)) {
-                    download(key, src);
-                    continue;
-                }
-                final double current = currentRunnersList.get(key);
-                final double updated = updatedRunnersList.get(key);
-                if (updated > current) {
+                if (!currentRunnersList.containsKey(key) || updatedRunnersList.get(key) > currentRunnersList.get(key)) {
                     download(key, src);
                 }
             }
@@ -138,7 +126,7 @@ public class Updater {
             final File xout = new File(Global.Paths.SOURCE, runnerName + ".xml");
             IOUtils.write(xout, xdata);
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.err.println("Unable to download " + runnerName);
             e.printStackTrace();
         }
@@ -165,7 +153,7 @@ public class Updater {
                 String[] split = s.split("-");
                 updatedRunnersList.put(split[0], Double.parseDouble(split[1]));
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
@@ -181,8 +169,8 @@ public class Updater {
 
     private static byte[] downloadCurrentClientInfo(final String src) {
         try {
-            return IOUtils.download(new URL(URLs.BIN + "version.txt" + (src.equals(URLs.BIN) ? "?raw=true" : "")));
-        } catch (IOException e) {
+            return IOUtils.download(new URL(URLs.BIN + "version.txt" + (src.contains("github.com") ? "?raw=true" : "")));
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -205,7 +193,7 @@ public class Updater {
                     return true;
                 }
             }
-        } catch (SocketException e) {
+        } catch (final SocketException e) {
             e.printStackTrace();
         }
         return false;

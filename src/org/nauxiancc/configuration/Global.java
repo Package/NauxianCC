@@ -21,12 +21,12 @@ import org.nauxiancc.methods.Updater;
  */
 public class Global {
 
-    private static BufferedImage[] imgs;
+    private static BufferedImage[] icons;
 
-    public static final int SPLASH_IMAGE = 0;
-    public static final int ICON_IMAGE = 1;
-    public static final int CLOSE_IMAGE = 2;
-    public static final int COMPLETE_IMAGE = 3;
+    public static final int SPLASH_IMAGE = 0x00;
+    public static final int ICON_IMAGE = 0x01;
+    public static final int CLOSE_IMAGE = 0x02;
+    public static final int COMPLETE_IMAGE = 0x03;
 
     /**
      * Loads the images. Preferably only ran once in the boot to avoid
@@ -40,10 +40,10 @@ public class Global {
      */
 
     public static void loadImages() {
-        imgs = new BufferedImage[URLs.IMAGES.length];
+        icons = new BufferedImage[URLs.IMAGES.length];
         for (int i = 0; i < URLs.IMAGES.length; i++) {
             try {
-                imgs[i] = ImageIO.read(Global.class.getResourceAsStream(URLs.IMAGES[i]));
+                icons[i] = ImageIO.read(Global.class.getResourceAsStream(URLs.IMAGES[i]));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -65,7 +65,7 @@ public class Global {
 
     public static Image getImage(int num) {
         if (num >= 0 && num <= 3) {
-            return imgs[num];
+            return icons[num];
         }
         throw new IndexOutOfBoundsException("Invalid input");
     }

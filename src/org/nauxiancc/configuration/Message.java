@@ -9,11 +9,11 @@ import java.util.Random;
  * @since 1.0
  */
 
-public class Tip {
+public class Message {
 
-    private final static String[] TIPS = new String[]{
+    private final static String[] MESSAGES = new String[]{
 
-            "Adding searching soon",
+            "Most of Nauxian CC's code is from before Java 7.",
             "There is no cow level",
             "Only through suffering, does one attain wisdom",
             "Now with 0 calories!"
@@ -29,8 +29,8 @@ public class Tip {
      */
 
     public static String getRandom() {
-        final int tipNumber = new Random().nextInt(TIPS.length);
-        return "Tip #" + (tipNumber + 1) + ": " + TIPS[tipNumber];
+        final int tipNumber = new Random().nextInt(MESSAGES.length);
+        return "Message #" + (tipNumber + 1) + ": " + MESSAGES[tipNumber];
     }
 
 }

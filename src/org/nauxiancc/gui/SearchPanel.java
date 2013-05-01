@@ -106,8 +106,8 @@ public class SearchPanel extends JPanel {
      * Standardizes the search key and passes conditions into
      * the refining process for the panels.
      *
+     * @param key The key to search for. Defaults to empty.
      * @since 1.0
-     * @param key       The key to search for. Defaults to empty.
      */
 
     public synchronized void search(final String key) {

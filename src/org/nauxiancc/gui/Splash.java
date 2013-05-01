@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.nauxiancc.configuration.Global;
-import org.nauxiancc.configuration.Tip;
+import org.nauxiancc.configuration.Message;
 
 /**
  * The splash screen loaded before the main application. It displays information
@@ -24,7 +24,7 @@ public class Splash {
 
     private static String status = "Loading";
     private String name;
-    private String tip;
+    private final String message;
 
     private static final Color COLOR = new Color(250, 250, 250, 200);
     private static final Font FONT = new Font("Consolas", Font.PLAIN, 12);
@@ -49,11 +49,11 @@ public class Splash {
                 g.setFont(FONT);
                 g.drawString(status, 10, 190);
                 g.drawString("Welcome to Nauxian Computing Challenges " + name, 10, 15);
-                g.drawString(tip, 10, 90);
+                g.drawString(message, 10, 90);
             }
         };
 
-        tip = Tip.getRandom();
+        message = Message.getRandom();
         name = System.getProperty("user.name");
         if (name == null || name.length() == 0) {
             name = "Mr. Anderson"; // matrix.
@@ -61,16 +61,9 @@ public class Splash {
 
         frame.setIconImage(Global.getImage(Global.ICON_IMAGE));
         frame.setUndecorated(true);
-        frame.setLocationRelativeTo(null);
         frame.setSize(600, 200);
+        frame.setLocationRelativeTo(null);
         frame.setContentPane(splash);
-
-        splash.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                tip = Tip.getRandom();
-            }
-        });
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

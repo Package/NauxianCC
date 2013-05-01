@@ -46,6 +46,7 @@ public class SelectorLayout extends FlowLayout {
             final int vgap = getVgap();
             final Dimension dim = new Dimension(0, 0);
             final Insets insets = target.getInsets();
+            final Container scrollPane = SwingUtilities.getAncestorOfClass(JScrollPane.class, target);
             final int horizontalInsetsAndGap = insets.left + insets.right + (hgap * 2);
             final int maxWidth = targetWidth - horizontalInsetsAndGap;
 
@@ -79,7 +80,6 @@ public class SelectorLayout extends FlowLayout {
                 }
             }
 
-
             dim.width = Math.max(dim.width, rowWidth);
 
             if (dim.height > 0) {
@@ -89,8 +89,6 @@ public class SelectorLayout extends FlowLayout {
             dim.height += rowHeight;
             dim.width += horizontalInsetsAndGap;
             dim.height += insets.top + insets.bottom + vgap * 2;
-
-            final Container scrollPane = SwingUtilities.getAncestorOfClass(JScrollPane.class, target);
 
             if (scrollPane != null && target.isValid()) {
                 dim.width -= (hgap + 1);

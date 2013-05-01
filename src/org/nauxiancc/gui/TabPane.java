@@ -1,4 +1,5 @@
 package org.nauxiancc.gui;
+
 import org.nauxiancc.configuration.Global;
 import org.nauxiancc.projects.Project;
 
@@ -7,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TabPane extends JPanel{
+public class TabPane extends JPanel {
 
     private static final Dimension TAB_SIZE = new Dimension(170, 30);
 
