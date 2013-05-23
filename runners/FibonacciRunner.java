@@ -21,12 +21,20 @@ public class FibonacciRunner extends Runner {
 			return new Result[] {};
 		}
 	}
+	
+	public FibonacciRunner() {
+		cache.add(0);
+		cache.add(1);
+	}
+	
+	private List<Integer> cache = new ArrayList<Integer>();
 
 	public int fibonacci(int n) {
-		if (n == 1 || n == 0) {
-			return n;
+		if (cache.length() > n) {
+			return n < 0 ? 0 : cache.get(n);
 		}
-		return fibonacci(n - 1) + fibonacci(n - 2);
-
+		int ret = fibonacci(n - 1) + fibonacci(n - 2);
+		if (cache.length() == n) cache.add(ret);
+		return ret;
 	}
 }
